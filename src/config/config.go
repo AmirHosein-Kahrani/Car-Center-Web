@@ -8,58 +8,50 @@ import (
 	"github.com/spf13/viper"
 )
 
-
-
-type Config struct{
-	Server ServerConfig
+type Config struct {
+	Server   ServerConfig
 	Postgres PostgresConfig
-	Redis	RedisConfig	
+	Redis    RedisConfig
 }
 
-type ServerConfig struct{
-
-	Port string	
-	RunMode string	
+type ServerConfig struct {
+	Port    string
+	RunMode string
 }
 
-
-type PostgresConfig struct{
-	Host string	
-	Port string	
-	User string	
-	PassWord string	
-	DbName string	
-	SSLMode bool	
+type PostgresConfig struct {
+	Host     string
+	Port     string
+	User     string
+	PassWord string
+	DbName   string
+	SSLMode  bool
 }
 
-
-
-
-type RedisConfig struct{
-
-	Host string	
-	Port string	
-	PassWord string	
-	Db string	
+type RedisConfig struct {
+	Host              string
+	Port              string
+	PassWord          string
+	Db                string
 	MinIdleconnection int
-	Pollsize int
-	PoolTimeout int
+	Pollsize          int
+	PoolTimeout       int
 }
 
-func GetConfig() *Config{
-	cfgPath :=	getConfigPath(os.Getenv("APP_ENV"))
-	v , err:= LoadConfig(cfgPath, "yml")
-	if err != nil{
-		log.Fatalf("Error In Load Config %v",err)
+func GetConfig() *Config {
+	cfgPath := getConfigPath(os.Getenv("APP_ENV"))
+	v, err := LoadConfig(cfgPath, "yml")
+	if err != nil {
+		log.Fatalf("Error In Load Config %v", err)
 	}
 	cfg, err := ParseConfig(v)
-	if err != nil{
-		log.Fatalf("Error In Parse Config %v",err)
+	if err != nil {
+		log.Fatalf("Error In Parse Config %v", err)
 	}
 	return cfg
 }
 
-func ParseConfig(v *viper.Viper) (*Config, error){
+func ParseConfig(v *viper.Viper) (*Config, error) {
 	var cfg Config
 	err := v.Unmarshal(&cfg)
 	if err != nil {
@@ -69,11 +61,7 @@ func ParseConfig(v *viper.Viper) (*Config, error){
 	return &cfg, nil
 }
 
-
-
-
-
-func LoadConfig(fileName , fileType string)(*viper.Viper, error){
+func LoadConfig(fileName, fileType string) (*viper.Viper, error) {
 
 	v := viper.New()
 	v.SetConfigType(fileType)
@@ -82,9 +70,9 @@ func LoadConfig(fileName , fileType string)(*viper.Viper, error){
 	v.AutomaticEnv()
 
 	err := v.ReadInConfig()
-	if err != nil{
+	if err != nil {
 		log.Printf("Unable To Read Config: %v", err)
-		if _ , ok := err.(viper.ConfigFileNotFoundError);ok {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
 			return nil, errors.New("config File Not Found")
 		}
 		return nil, err
@@ -92,10 +80,7 @@ func LoadConfig(fileName , fileType string)(*viper.Viper, error){
 	return v, nil
 }
 
-
-
-
-func getConfigPath(env string) string{
+func getConfigPath(env string) string {
 
 	switch env {
 	case "docker":
@@ -105,8 +90,5 @@ func getConfigPath(env string) string{
 	default:
 		return "../config/config-development"
 	}
-
-
-
 
 }
