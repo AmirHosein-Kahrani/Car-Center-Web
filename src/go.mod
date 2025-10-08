@@ -4,6 +4,7 @@ go 1.25.0
 
 require (
 	github.com/gin-gonic/gin v1.11.0
+	github.com/go-playground/validator v9.31.0+incompatible
 	github.com/spf13/viper v1.21.0
 )
 
@@ -48,4 +49,5 @@ require (
 	golang.org/x/text v0.28.0 // indirect
 	golang.org/x/tools v0.35.0 // indirect
 	google.golang.org/protobuf v1.36.9 // indirect
+	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 )

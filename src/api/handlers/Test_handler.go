@@ -134,15 +134,22 @@ func (h *TestHandler) UriBinder(c *gin.Context) {
 }
 
 type PersonData struct{
-	FirstName string
-	LastName string
+	FirstName string `json:"first_name" binding:"required,alpha,min=4,max=10"`
+	LastName string `json:"last_name" binding:"required,alpha,min=6,max=20"`
+	MobileNumber string `json:"mobile_number" binding:"required,mobile"`
 }
 
 
 func (h *TestHandler) BodyBinder(c *gin.Context) {
 	p := PersonData{}
 	// c.BindJSON(&p)
-	c.ShouldBindJSON(&p)
+	err := c.ShouldBindJSON(&p)
+	if err != nil{
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"error validate": err.Error(),
+		})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"result": "BodyBinder",
