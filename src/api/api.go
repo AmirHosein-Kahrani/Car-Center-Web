@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 
+	"github.com/AmirHosein-Kahrani/Car-Center-Web/api/middlewares"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/api/routers"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/api/validations"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/config"
@@ -20,7 +21,9 @@ func InitServer() {
 	if ok {
 		val.RegisterValidation("mobile", validations.IranianPhone_validator, true)
 	}
-	r.Use(gin.Logger(), gin.Recovery())
+	// r.Use(gin.Logger(), gin.Recovery(), middlewares.TestMiddleware())
+	r.Use(gin.Logger(), gin.Recovery(),  middlewares.LimitByRequest())
+
 
 	api := r.Group("/api")
 
