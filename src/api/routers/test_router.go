@@ -29,4 +29,8 @@ func TestRouter(r *gin.RouterGroup) {
 
 
 	r.POST("/binder/File", h.FileBinder)
+
+
+	r.GET("/pass", h.PassHandler)
+
 }

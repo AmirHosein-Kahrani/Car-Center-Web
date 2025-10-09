@@ -188,3 +188,30 @@ func (h *TestHandler) FileBinder(c *gin.Context) {
 
 	})
 }
+
+
+type Password struct{
+
+	Pass string `json:"password" binding:"valid_pass"`
+}
+
+func(h *TestHandler)  PassHandler(c *gin.Context){
+
+	pass := Password{}
+	// c.BindJSON(&p)
+	err := c.ShouldBindJSON(&pass)
+
+
+	if err != nil{
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+		"error validate": err.Error(),
+	})
+	return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"result": "Password",
+		"Pass": pass,
+
+	})
+}

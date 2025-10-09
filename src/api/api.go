@@ -20,10 +20,10 @@ func InitServer() {
 
 	if ok {
 		val.RegisterValidation("mobile", validations.IranianPhone_validator, true)
+		val.RegisterValidation("valid_pass", validations.PasswordValidator, true)
 	}
 	// r.Use(gin.Logger(), gin.Recovery(), middlewares.TestMiddleware())
-	r.Use(gin.Logger(), gin.Recovery(),  middlewares.LimitByRequest())
-
+	r.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequest())
 
 	api := r.Group("/api")
 
