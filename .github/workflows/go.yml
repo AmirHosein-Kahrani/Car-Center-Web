@@ -25,5 +25,4 @@ jobs:
       run: cd src && go mod download && go build -v cmd/main.go
 
     - name: Test
-
       run: go build -v ./...
