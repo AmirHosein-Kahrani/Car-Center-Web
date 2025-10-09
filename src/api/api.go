@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
-)
+	cors "github.com/rs/cors/wrapper/gin")
 
 func InitServer() {
 	cfg := config.GetConfig()
@@ -25,6 +25,9 @@ func InitServer() {
 	// r.Use(gin.Logger(), gin.Recovery(), middlewares.TestMiddleware())
 	r.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequest())
 
+
+	r.Use(cors.Default())
+	
 	api := r.Group("/api")
 
 	v1 := api.Group("/v1/")
