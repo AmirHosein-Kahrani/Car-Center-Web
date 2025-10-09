@@ -1,0 +1,34 @@
+package helper
+
+import "github.com/AmirHosein-Kahrani/Car-Center-Web/api/validations"
+
+// "github.com/AmirHosein-Kahrani/Car-Center-Web/"
+
+type BaseHttpResponse struct {
+	Result           any                             `json:"result"`
+	Succuss          bool                            `json:"success"`
+	ResultCode       int                             `json:"resultCode"`
+	ValidationErrors *[]validations.ValidationErrors `json:"validationErrors"`
+	Error            any                             `json:"error"`
+}
+
+func GenerateBaseResponse(result any, success bool, resultCode int) *BaseHttpResponse {
+	return &BaseHttpResponse{Result: result,
+		Succuss:    success,
+		ResultCode: resultCode}
+}
+
+func GenerateBaseResponseWithError(result any, success bool, resultCode int, err error) *BaseHttpResponse {
+	return &BaseHttpResponse{Result: result,
+		Succuss:    success,
+		ResultCode: resultCode,
+		Error:      err.Error()}
+
+}
+
+func GenerateBaseResponseWithValidationError(result any, success bool, resultCode int, err error) *BaseHttpResponse {
+	return &BaseHttpResponse{Result: result,
+		Succuss:          success,
+		ResultCode:       resultCode,
+		ValidationErrors: validations.GetValidationErrors(err)}
+}

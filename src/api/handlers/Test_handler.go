@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/AmirHosein-Kahrani/Car-Center-Web/api/helper"
 	"github.com/gin-gonic/gin"
 )
 
@@ -139,23 +140,21 @@ type PersonData struct{
 	MobileNumber string `json:"mobile_number" binding:"required,mobile"`
 }
 
-
+//  base response added to this handler
 func (h *TestHandler) BodyBinder(c *gin.Context) {
 	p := PersonData{}
 	// c.BindJSON(&p)
 	err := c.ShouldBindJSON(&p)
 	if err != nil{
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			"error validate": err.Error(),
-		})
+		c.AbortWithStatusJSON(http.StatusBadRequest,helper.GenerateBaseResponseWithValidationError(nil, false, -1, err))
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
+	c.JSON(http.StatusOK,helper.GenerateBaseResponse(gin.H{
 		"result": "BodyBinder",
 		"Person": p,
 
-	})
+	}, true, 0))
 }
 
 func (h *TestHandler) FormBinder(c *gin.Context) {
@@ -215,3 +214,7 @@ func(h *TestHandler)  PassHandler(c *gin.Context){
 
 	})
 }
+
+
+
+
