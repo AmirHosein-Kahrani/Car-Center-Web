@@ -4,6 +4,7 @@ import (
 	"errors"
 	"log"
 	"os"
+	"time"
 
 	"github.com/spf13/viper"
 )
@@ -29,13 +30,16 @@ type PostgresConfig struct {
 }
 
 type RedisConfig struct {
-	Host              string
-	Port              string
-	PassWord          string
-	Db                string
-	MinIdleconnection int
-	Pollsize          int
-	PoolTimeout       int
+	Host               string
+	Port               string
+	PassWord           string
+	Db                 string
+	DialTimeout        time.Duration
+	ReadTimeout        time.Duration
+	WriteTimeout       time.Duration
+	IdleCheckFrequency time.Duration
+	Pollsize           int
+	PoolTimeout        time.Duration
 }
 
 func GetConfig() *Config {
