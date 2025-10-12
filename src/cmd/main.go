@@ -9,24 +9,25 @@ import (
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/data/db"
 )
 
+// @securityDefinition.apikey AuthBearer
+// @in header
+// @name authorization
 func main() {
 	cfg := config.GetConfig()
 
 	err := cache.InitRedis(cfg)
 	defer cache.CloseRedis()
-	if err != nil{
+	if err != nil {
 		log.Fatal(err)
 	}
-
 
 	err = db.InitDb(cfg)
 	defer db.CloseDb()
-	if err != nil{
+	if err != nil {
 
-	println("postgresql error")
+		println("postgresql error")
 		log.Fatal(err)
 	}
-
 
 	api.InitServer(cfg)
 

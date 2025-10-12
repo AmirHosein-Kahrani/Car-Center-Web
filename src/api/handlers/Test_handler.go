@@ -26,6 +26,16 @@ func (h TestHandler) Users(c *gin.Context) {
 	})
 }
 
+// UserById godocs
+// @summery UserById
+// @Description UserById
+// @Tags Test
+// @Param id path int true "user id"
+// @Accept json
+// @Produce json
+// @Succuss 200 {object} helper.BaseHttpResponse "Succuss"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Router /v1/test/user/{id} [get]
 func (h TestHandler) UserById(c *gin.Context) {
 	id := c.Param("id")
 	c.JSON(http.StatusOK, gin.H{
@@ -59,7 +69,7 @@ func (h TestHandler) AddUser(c *gin.Context) {
 // S23 CH3
 type header struct {
 	ApplicationType string
-	Browser          string
+	Browser         string
 }
 
 func (h *TestHandler) HeaderBinder1(c *gin.Context) {
@@ -71,16 +81,14 @@ func (h *TestHandler) HeaderBinder1(c *gin.Context) {
 	})
 }
 
-
-
 func (h *TestHandler) HeaderBinder2(c *gin.Context) {
 	obj := header{}
 	err := c.BindHeader(&obj)
-	if err  != nil{
+	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-		"result": "HeaderBinder1",
-		"err": err,
-	})
+			"result": "HeaderBinder1",
+			"err":    err,
+		})
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -89,38 +97,27 @@ func (h *TestHandler) HeaderBinder2(c *gin.Context) {
 	})
 }
 
-
 func (h *TestHandler) QueryBinder1(c *gin.Context) {
 	id := c.Query("id")
 	name := c.Query("name")
 
-
-
 	c.JSON(http.StatusOK, gin.H{
 		"result": "QueryBinder1",
-		"name": name,
-		"id": id,
-
+		"name":   name,
+		"id":     id,
 	})
 }
-
-
 
 func (h *TestHandler) QueryBinder2(c *gin.Context) {
 	ids := c.QueryArray("id")
 	names := c.QueryArray("name")
 
-
-
 	c.JSON(http.StatusOK, gin.H{
 		"result": "QueryBinder2",
-		"names": names,
-		"ids": ids,
-
+		"names":  names,
+		"ids":    ids,
 	})
 }
-
-
 
 func (h *TestHandler) UriBinder(c *gin.Context) {
 	id := c.Param("id")
@@ -128,32 +125,45 @@ func (h *TestHandler) UriBinder(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"result": "UriBinder",
-		"name": name,
-		"id": id,
-
+		"name":   name,
+		"id":     id,
 	})
 }
 
-type PersonData struct{
-	FirstName string `json:"first_name" binding:"required,alpha,min=4,max=10"`
-	LastName string `json:"last_name" binding:"required,alpha,min=6,max=20"`
+type PersonData struct {
+	FirstName    string `json:"first_name" binding:"required,alpha,min=4,max=10"`
+	LastName     string `json:"last_name" binding:"required,alpha,min=6,max=20"`
 	MobileNumber string `json:"mobile_number" binding:"required,mobile"`
 }
 
-//  base response added to this handler
+
+
+
+
+
+// BodyBinder godocs
+// @summery BodyBinder
+// @Description BodyBinder
+// @Tags Test
+// @Param person body PersonData true "person data"
+// @Accept json
+// @Produce json
+// @Succuss 200 {object} helper.BaseHttpResponse "Succuss"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Router /v1/test/binder/body [post]
+// @Security AuthBearer
 func (h *TestHandler) BodyBinder(c *gin.Context) {
 	p := PersonData{}
 	// c.BindJSON(&p)
 	err := c.ShouldBindJSON(&p)
-	if err != nil{
-		c.AbortWithStatusJSON(http.StatusBadRequest,helper.GenerateBaseResponseWithValidationError(nil, false, -1, err))
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, helper.GenerateBaseResponseWithValidationError(nil, false, -1, err))
 		return
 	}
 
-	c.JSON(http.StatusOK,helper.GenerateBaseResponse(gin.H{
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
 		"result": "BodyBinder",
 		"Person": p,
-
 	}, true, 0))
 }
 
@@ -165,16 +175,13 @@ func (h *TestHandler) FormBinder(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"result": "FormBinder",
 		"Person": p,
-
 	})
 }
 
-
-
 func (h *TestHandler) FileBinder(c *gin.Context) {
-	file , _ := c.FormFile("myfile")
+	file, _ := c.FormFile("myfile")
 	err := c.SaveUploadedFile(file, "file")
-	if err != nil{
+	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
@@ -183,38 +190,29 @@ func (h *TestHandler) FileBinder(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"result": "FileBinder",
-		"file": file.Filename,
-
+		"file":   file.Filename,
 	})
 }
 
-
-type Password struct{
-
+type Password struct {
 	Pass string `json:"password" binding:"valid_pass"`
 }
 
-func(h *TestHandler)  PassHandler(c *gin.Context){
+func (h *TestHandler) PassHandler(c *gin.Context) {
 
 	pass := Password{}
 	// c.BindJSON(&p)
 	err := c.ShouldBindJSON(&pass)
 
-
-	if err != nil{
+	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-		"error validate": err.Error(),
-	})
-	return
+			"error validate": err.Error(),
+		})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"result": "Password",
-		"Pass": pass,
-
+		"Pass":   pass,
 	})
 }
-
-
-
-

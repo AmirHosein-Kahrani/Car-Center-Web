@@ -7,16 +7,22 @@ import (
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/api/routers"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/api/validations"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/config"
+	"github.com/AmirHosein-Kahrani/Car-Center-Web/docs"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 	cors "github.com/rs/cors/wrapper/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func InitServer(cfg *config.Config) {
 
 	r := gin.New()
 	// r1 := gin.Default()
+
+	RegisterSwagger(r ,cfg)
+
 
 	RegisterValidator()
 
@@ -49,4 +55,16 @@ func RegisterValidator() {
 		val.RegisterValidation("mobile", validations.IranianPhone_validator, true)
 		val.RegisterValidation("valid_pass", validations.PasswordValidator, true)
 	}
+}
+
+func RegisterSwagger(r *gin.Engine, cfg *config.Config) {
+	docs.SwaggerInfo.Title = "Golang Web Api"
+	docs.SwaggerInfo.Description = "Golang Web Api"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.BasePath = "/api"
+	docs.SwaggerInfo.Host = fmt.Sprintf("localhost:%s", cfg.Server.Port)
+
+	docs.SwaggerInfo.Schemes = []string{"http"}
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }
