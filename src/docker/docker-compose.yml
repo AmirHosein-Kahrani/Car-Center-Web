@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
-      POSTGRES-DB: car_sale_db
+      POSTGRES_DB: car_sale_db
       PG_DATA: /data/postgres
     volumes:
       - postgres:/data/postgres
