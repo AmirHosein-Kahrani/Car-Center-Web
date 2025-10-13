@@ -7,7 +7,7 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-var logLevelMap = map[string]zapcore.Level{
+var zaplogLevelMapping = map[string]zapcore.Level{
 
 	"debug": zapcore.DebugLevel,
 	"info":  zapcore.InfoLevel,
@@ -16,13 +16,16 @@ var logLevelMap = map[string]zapcore.Level{
 	"fatal": zapcore.FatalLevel,
 }
 
+// var once sync.Once
+var zapSinLogger *zap.SugaredLogger
+
 type zapLogger struct {
 	cfg    *config.Config
 	logger *zap.SugaredLogger
 }
 
 func (l *zapLogger) getLogLevel() zapcore.Level {
-	level, exists := logLevelMap[l.cfg.Logger.Level]
+	level, exists := zaplogLevelMapping[l.cfg.Logger.Level]
 	if !exists {
 		return zapcore.DebugLevel
 	}
@@ -36,26 +39,31 @@ func newZapLogger(cfg *config.Config) *zapLogger {
 
 }
 func (l *zapLogger) Init() {
-	w := zapcore.AddSync(&lumberjack.Logger{
-		Filename:   l.cfg.Logger.Filepath,
-		MaxSize:    1,
-		MaxAge:     5,
-		MaxBackups: 10,
-		Compress:   true,
+
+	once.Do(func() {
+		w := zapcore.AddSync(&lumberjack.Logger{
+			Filename:   l.cfg.Logger.Filepath,
+			MaxSize:    1,
+			MaxAge:     5,
+			MaxBackups: 10,
+			Compress:   true,
+		})
+
+		config := zap.NewProductionEncoderConfig()
+		config.EncodeTime = zapcore.ISO8601TimeEncoder
+
+		core := zapcore.NewCore(
+			zapcore.NewJSONEncoder(config),
+			w,
+			l.getLogLevel(),
+		)
+		logger := zap.New(core, zap.AddCaller(),
+			zap.AddCallerSkip(1), zap.AddStacktrace(zapcore.ErrorLevel)).Sugar()
+
+		zapSinLogger = logger.With("AppName", "MyApp", "LoggerName", "ZeroLogger")
 	})
 
-	config := zap.NewProductionEncoderConfig()
-	config.EncodeTime = zapcore.ISO8601TimeEncoder
-
-	core := zapcore.NewCore(
-		zapcore.NewJSONEncoder(config),
-		w,
-		l.getLogLevel(),
-	)
-	logger := zap.New(core, zap.AddCaller(),
-		zap.AddCallerSkip(1), zap.AddStacktrace(zapcore.ErrorLevel)).Sugar()
-
-	l.logger = logger
+	l.logger = zapSinLogger
 
 }
 
@@ -116,6 +124,6 @@ func prepareLogKey(extra map[ExtraKey]interface{}, cat Category, sub SubCategory
 
 	extra["Category"] = cat
 	extra["SubCategory"] = sub
-	params := mapToZapParams(extra)
+	params := logParamsToZapParams(extra)
 	return params
 }

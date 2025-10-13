@@ -23,8 +23,13 @@ type Logger interface {
 }
 
 func NewLogger(cfg *config.Config) Logger {
-
-	return newZapLogger(cfg)
+	switch cfg.Logger.Logger {
+	case "zap":
+		return newZapLogger(cfg)
+	case "zerolog":
+		return newZeroLogger(cfg)
+	}
+	panic("logger not supported")
 }
 
 //  file <- filebeat -> elasticSearch -> Kibana
