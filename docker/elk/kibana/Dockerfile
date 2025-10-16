@@ -1,5 +1,4 @@
 ARG ELASTIC_VERSION
-
 # https://www.docker.elastic.co/
 FROM kibana:${ELASTIC_VERSION}
 

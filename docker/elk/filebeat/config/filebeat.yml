@@ -4,7 +4,7 @@
 
 name: filebeat
 filebeat.inputs:
-  - type: log
+  - type: filestream
     enabled: true
     paths:
       - "/var/log/filebeat/service/*.log"
