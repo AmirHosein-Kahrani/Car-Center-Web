@@ -38,7 +38,7 @@ services:
     container_name: redis_container
     command: [ "redis-server", "/etc/redis/redis.conf" ]
     volumes:
-      # - /redis/redis.conf:/etc/redis/redis.conf
+      # - :/etc/redis/redis.conf
       # - redis:/etc/redis/redis.conf
       # - redis:/data
 

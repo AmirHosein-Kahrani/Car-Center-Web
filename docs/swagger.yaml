@@ -1,21 +1,4 @@
 definitions:
-  api_handlers.PersonData:
-    properties:
-      first_name:
-        maxLength: 10
-        minLength: 4
-        type: string
-      last_name:
-        maxLength: 20
-        minLength: 6
-        type: string
-      mobile_number:
-        type: string
-    required:
-    - first_name
-    - last_name
-    - mobile_number
-    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse:
     properties:
       error: {}
@@ -39,6 +22,23 @@ definitions:
         type: string
       value:
         type: string
+    type: object
+  src_api_handlers.PersonData:
+    properties:
+      first_name:
+        maxLength: 10
+        minLength: 4
+        type: string
+      last_name:
+        maxLength: 20
+        minLength: 6
+        type: string
+      mobile_number:
+        type: string
+    required:
+    - first_name
+    - last_name
+    - mobile_number
     type: object
 info:
   contact: {}
@@ -68,7 +68,7 @@ paths:
         name: person
         required: true
         schema:
-          $ref: '#/definitions/api_handlers.PersonData'
+          $ref: '#/definitions/src_api_handlers.PersonData'
       produces:
       - application/json
       responses:

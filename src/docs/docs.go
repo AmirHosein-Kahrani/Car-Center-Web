@@ -31,7 +31,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Failed",
                         "schema": {
-                            "$ref": "#/definitions/helper.BaseHttpResponse"
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
                         }
                     }
                 }
@@ -61,7 +61,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handlers.PersonData"
+                            "$ref": "#/definitions/api_handlers.PersonData"
                         }
                     }
                 ],
@@ -69,7 +69,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Failed",
                         "schema": {
-                            "$ref": "#/definitions/helper.BaseHttpResponse"
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
                         }
                     }
                 }
@@ -100,7 +100,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Failed",
                         "schema": {
-                            "$ref": "#/definitions/helper.BaseHttpResponse"
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
                         }
                     }
                 }
@@ -108,7 +108,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "handlers.PersonData": {
+        "api_handlers.PersonData": {
             "type": "object",
             "required": [
                 "first_name",
@@ -131,7 +131,7 @@ const docTemplate = `{
                 }
             }
         },
-        "helper.BaseHttpResponse": {
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse": {
             "type": "object",
             "properties": {
                 "error": {},
@@ -145,12 +145,12 @@ const docTemplate = `{
                 "validationErrors": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/validations.ValidationErrors"
+                        "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_validations.ValidationErrors"
                     }
                 }
             }
         },
-        "validations.ValidationErrors": {
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_validations.ValidationErrors": {
             "type": "object",
             "properties": {
                 "Property": {

@@ -50,7 +50,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/api_handlers.PersonData"
+                            "$ref": "#/definitions/src_api_handlers.PersonData"
                         }
                     }
                 ],
@@ -97,29 +97,6 @@
         }
     },
     "definitions": {
-        "api_handlers.PersonData": {
-            "type": "object",
-            "required": [
-                "first_name",
-                "last_name",
-                "mobile_number"
-            ],
-            "properties": {
-                "first_name": {
-                    "type": "string",
-                    "maxLength": 10,
-                    "minLength": 4
-                },
-                "last_name": {
-                    "type": "string",
-                    "maxLength": 20,
-                    "minLength": 6
-                },
-                "mobile_number": {
-                    "type": "string"
-                }
-            }
-        },
         "github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse": {
             "type": "object",
             "properties": {
@@ -152,6 +129,29 @@
                     "type": "string"
                 },
                 "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "src_api_handlers.PersonData": {
+            "type": "object",
+            "required": [
+                "first_name",
+                "last_name",
+                "mobile_number"
+            ],
+            "properties": {
+                "first_name": {
+                    "type": "string",
+                    "maxLength": 10,
+                    "minLength": 4
+                },
+                "last_name": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 6
+                },
+                "mobile_number": {
                     "type": "string"
                 }
             }

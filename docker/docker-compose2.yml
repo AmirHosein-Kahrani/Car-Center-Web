@@ -47,7 +47,7 @@ services:
     build:
       context: elk/kibana/
       args:
-        ELASTIC_VERSION: ${111111111111111111111111111111111111111111111112222222222222222222222222222}
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
     volumes:
       - ./elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
       - elasticsearch:/usr/share/kibana/data:Z
