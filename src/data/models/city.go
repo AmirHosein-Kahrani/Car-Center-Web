@@ -6,10 +6,3 @@ type City struct {
 	CountryID int
 	Country   Country `gorm:"foreignKey:CountryID"`
 }
-
-// type City struct {
-// 	BaseModel
-// 	Name      string  `gorm:"size:10;not null"`
-// 	CountryID uint
-// 	Country   Country
-// }

@@ -37,3 +37,7 @@ go.work.sum
 
 */logs
 *.log
+
+__debug*
+src/cmd/__debug_*
+src/cmd/__debug_bin645794488
