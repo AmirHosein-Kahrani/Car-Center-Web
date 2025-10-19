@@ -41,3 +41,9 @@ go.work.sum
 __debug*
 src/cmd/__debug_*
 src/cmd/__debug_bin645794488
+__debug_bin*
+__debug_bin*
+*.exe
+*.out
+*.log
+tatus
