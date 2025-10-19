@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "swag",
+      "type": "shell",
+      "command": "/home/amir/go/bin/swag",
+      "args": [
+        "init",
+        "-g",
+        "src/cmd/main.go",
+        "--parseDependency",
+        "--parseInternal"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
