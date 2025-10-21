@@ -26,3 +26,7 @@ redis:
   minIdleconnections: 100
   pollsize: 5000
   poolTimeout: 240
+otp:
+  expireTime: 120
+  digits: 6
+  limiter: 100

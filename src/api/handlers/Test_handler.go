@@ -27,13 +27,13 @@ func (h TestHandler) Users(c *gin.Context) {
 }
 
 // UserById godocs
-// @summery UserById
+// @Summary UserById
 // @Description UserById
 // @Tags Test
 // @Param id path int true "user id"
 // @Accept json
 // @Produce json
-// @Succuss 200 {object} helper.BaseHttpResponse "Succuss"
+// @Success 200 {object} helper.BaseHttpResponse "Succuss"
 // @Failure 400 {object} helper.BaseHttpResponse "Failed"
 // @Router /v1/test/user/{id} [get]
 func (h TestHandler) UserById(c *gin.Context) {
@@ -135,11 +135,6 @@ type PersonData struct {
 	LastName     string `json:"last_name" binding:"required,alpha,min=6,max=20"`
 	MobileNumber string `json:"mobile_number" binding:"required,mobile"`
 }
-
-
-
-
-
 
 // BodyBinder godocs
 // @summery BodyBinder
