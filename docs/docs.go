@@ -31,7 +31,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Failed",
                         "schema": {
-                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                            "$ref": "#/definitions/helper.BaseHttpResponse"
                         }
                     }
                 }
@@ -61,7 +61,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/src_api_handlers.PersonData"
+                            "$ref": "#/definitions/handlers.PersonData"
                         }
                     }
                 ],
@@ -69,7 +69,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Failed",
                         "schema": {
-                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                            "$ref": "#/definitions/helper.BaseHttpResponse"
                         }
                     }
                 }
@@ -87,6 +87,7 @@ const docTemplate = `{
                 "tags": [
                     "Test"
                 ],
+                "summary": "UserById",
                 "parameters": [
                     {
                         "type": "integer",
@@ -97,10 +98,62 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
+                    "200": {
+                        "description": "Succuss",
+                        "schema": {
+                            "$ref": "#/definitions/helper.BaseHttpResponse"
+                        }
+                    },
                     "400": {
                         "description": "Failed",
                         "schema": {
-                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                            "$ref": "#/definitions/helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/users/send-otp": {
+            "post": {
+                "description": "Send Otp To User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Send Otp To User",
+                "parameters": [
+                    {
+                        "description": "GetOtpRequest",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.GetOtpRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed",
+                        "schema": {
+                            "$ref": "#/definitions/helper.BaseHttpResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Failed",
+                        "schema": {
+                            "$ref": "#/definitions/helper.BaseHttpResponse"
                         }
                     }
                 }
@@ -108,43 +161,20 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse": {
+        "dto.GetOtpRequest": {
             "type": "object",
+            "required": [
+                "mobileNumber"
+            ],
             "properties": {
-                "error": {},
-                "result": {},
-                "resultCode": {
-                    "type": "integer"
-                },
-                "success": {
-                    "type": "boolean"
-                },
-                "validationErrors": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_validations.ValidationErrors"
-                    }
+                "mobileNumber": {
+                    "type": "string",
+                    "maxLength": 11,
+                    "minLength": 11
                 }
             }
         },
-        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_validations.ValidationErrors": {
-            "type": "object",
-            "properties": {
-                "Property": {
-                    "type": "string"
-                },
-                "message": {
-                    "type": "string"
-                },
-                "tag": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "string"
-                }
-            }
-        },
-        "src_api_handlers.PersonData": {
+        "handlers.PersonData": {
             "type": "object",
             "required": [
                 "first_name",
@@ -163,6 +193,42 @@ const docTemplate = `{
                     "minLength": 6
                 },
                 "mobile_number": {
+                    "type": "string"
+                }
+            }
+        },
+        "helper.BaseHttpResponse": {
+            "type": "object",
+            "properties": {
+                "error": {},
+                "result": {},
+                "resultCode": {
+                    "type": "integer"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "validationErrors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/validations.ValidationErrors"
+                    }
+                }
+            }
+        },
+        "validations.ValidationErrors": {
+            "type": "object",
+            "properties": {
+                "Property": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                },
+                "value": {
                     "type": "string"
                 }
             }

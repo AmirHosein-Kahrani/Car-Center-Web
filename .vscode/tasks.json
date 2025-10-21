@@ -4,14 +4,8 @@
     {
       "label": "swag",
       "type": "shell",
-      "command": "/home/amir/go/bin/swag",
-      "args": [
-        "init",
-        "-g",
-        "src/cmd/main.go",
-        "--parseDependency",
-        "--parseInternal"
-      ],
+      "command": "cd src && swag init -g cmd/main.go --parseDependency --parseInternal",
+
       "problemMatcher": [],
       "group": {
         "kind": "build",
