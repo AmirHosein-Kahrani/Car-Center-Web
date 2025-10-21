@@ -29,9 +29,12 @@ redis:
   idleCheckFrequency: 500
   pollsize: 10
   poolTimeout: 15
-
 otp:
   expireTime: 120
   digits: 6
   limiter: 100
-
+jwt: 
+  secret: "secret"
+  refreshSecret: "refreshSecret"
+  accessTokenExpireDuration: 60
+  refreshTokenExpireDuration: 60
