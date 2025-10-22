@@ -16,6 +16,7 @@ type Config struct {
 	Logger   LoggerConfig
 	Otp      OtpConfig
 	Jwt      JWTConfig
+	Password PasswordConfig
 }
 
 type ServerConfig struct {
@@ -53,6 +54,15 @@ type RedisConfig struct {
 	IdleCheckFrequency time.Duration
 	Pollsize           int
 	PoolTimeout        time.Duration
+}
+
+type PasswordConfig struct {
+	IncludeChars     bool
+	IncludeDigits    bool
+	MinLength        int
+	MaxLength        int
+	IncludeUppercase bool
+	IncludeLowercase bool
 }
 
 type OtpConfig struct {
