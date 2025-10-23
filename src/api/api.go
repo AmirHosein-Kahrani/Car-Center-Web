@@ -26,7 +26,9 @@ func InitServer(cfg *config.Config) {
 	RegisterValidator()
 
 	// r.Use(gin.Logger(), gin.Recovery(), middlewares.TestMiddleware())
-	r.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequest())
+	// r.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequest())
+	r.Use(gin.Logger(), gin.CustomRecovery(middlewares.CustomRecoveryHandler), middlewares.LimitByRequest())
+
 	r.Use(middlewares.DefaultStructuredLogger(cfg))
 	r.Use(cors.Default())
 
