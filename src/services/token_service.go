@@ -5,6 +5,7 @@ import (
 
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/api/dto"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/config"
+	"github.com/AmirHosein-Kahrani/Car-Center-Web/constants"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/pkg/logging"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/pkg/service_errors"
 	"github.com/golang-jwt/jwt"
@@ -42,14 +43,14 @@ func (s *TokenService) GenerateToken(token *tokenDto) (*dto.TokenDetail, error) 
 
 	accessTokenClaims := jwt.MapClaims{}
 
-	accessTokenClaims["user_id"] = token.UserId
-	accessTokenClaims["first_name"] = token.FirstName
-	accessTokenClaims["last_name"] = token.LastName
-	accessTokenClaims["username"] = token.UserName
-	accessTokenClaims["email"] = token.Email
-	accessTokenClaims["mobile_number"] = token.MobileNumber
-	accessTokenClaims["roles"] = token.Roles
-	accessTokenClaims["exp"] = tokenDetail.AccessTokenExpireTime
+	accessTokenClaims[constants.UserIDKey] = token.UserId
+	accessTokenClaims[constants.FirstNameKey] = token.FirstName
+	accessTokenClaims[constants.LastNameKey] = token.LastName
+	accessTokenClaims[constants.UserNameKey] = token.UserName
+	accessTokenClaims[constants.EmailKey] = token.Email
+	accessTokenClaims[constants.MobileNumberKey] = token.MobileNumber
+	accessTokenClaims[constants.RolesKey] = token.Roles
+	accessTokenClaims[constants.ExpireTimeKey] = tokenDetail.AccessTokenExpireTime
 
 	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, accessTokenClaims)
 
@@ -60,8 +61,8 @@ func (s *TokenService) GenerateToken(token *tokenDto) (*dto.TokenDetail, error) 
 	}
 	refreshTokenClaims := jwt.MapClaims{}
 
-	refreshTokenClaims["user_id"] = token.UserId
-	refreshTokenClaims["exp"] = tokenDetail.RefreshTokenExpireTime
+	refreshTokenClaims[constants.UserIDKey] = token.UserId
+	refreshTokenClaims[constants.ExpireTimeKey] = tokenDetail.RefreshTokenExpireTime
 	refreshToken := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshTokenClaims)
 
 	tokenDetail.RefreshToken, err = refreshToken.SignedString([]byte(s.cfg.Jwt.RefreshSecret))
@@ -103,5 +104,5 @@ func (s *TokenService) GetClaims(t string) (claimMap map[string]interface{}, err
 		return claimMap, nil
 	}
 	return nil, &service_errors.ServiceError{EndUserMessage: service_errors.ClaimsNotFound}
-	
+
 }
