@@ -16,6 +16,22 @@ definitions:
     - last_name
     - mobile_number
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CountryResponse:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateUpdateCountryRequest:
+    properties:
+      name:
+        maxLength: 20
+        minLength: 3
+        type: string
+    required:
+    - name
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.GetOtpRequest:
     properties:
       mobileNumber:
@@ -101,6 +117,120 @@ definitions:
 info:
   contact: {}
 paths:
+  /v1/countries/:
+    post:
+      consumes:
+      - application/json
+      description: create a country
+      parameters:
+      - description: create a country
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateUpdateCountryRequest'
+      responses:
+        "201":
+          description: Country Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CountryResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: create a country
+      tags:
+      - Countries
+  /v1/countries/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a country
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "201":
+          description: Response
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Delete a country
+      tags:
+      - Countries
+    get:
+      consumes:
+      - application/json
+      description: create a country
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Country Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CountryResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: create a country
+      tags:
+      - Countries
+    put:
+      consumes:
+      - application/json
+      description: Update a country
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "201":
+          description: Country Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CountryResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - AuthBearer: []
+      summary: Update a country
+      tags:
+      - Countries
   /v1/health/:
     get:
       consumes:
@@ -113,6 +243,7 @@ paths:
           description: Failed
           schema:
             $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      summary: Health Check
       tags:
       - Health
   /v1/test/binder/body:

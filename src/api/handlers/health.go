@@ -15,7 +15,7 @@ func NewHealthHandler() *HealthHandler {
 }
 
 // HealthCheck godocs
-// @summery Health Check
+// @Summary Health Check
 // @Description Health Check
 // @Tags Health
 // @Accept json

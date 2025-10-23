@@ -21,11 +21,11 @@ func Authentication(cfg *config.Config) gin.HandlerFunc {
 		var err error
 		claimMap := map[string]interface{}{}
 		auth := c.GetHeader(constants.AuthorizationHeaderKey)
-		token := strings.Split(auth, " ")[1] // example token -> "bearer asdafafawei01927381b"
+		token := strings.Split(auth, " ") // example token -> "bearer asdafafawei01927381b"
 		if auth == "" {
 			err = &service_errors.ServiceError{EndUserMessage: service_errors.TokenRequired}
 		} else {
-			claimMap, err = tokenService.GetClaims(token)
+			claimMap, err = tokenService.GetClaims(token[1])
 			if err != nil {
 				switch err.(*jwt.ValidationError).Errors {
 				case jwt.ValidationErrorExpired:

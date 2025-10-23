@@ -15,6 +15,8 @@ const (
 	OtpNotValid = "otp_not_valid"
 
 	// User
-	EmailExists    = "Email Exists"
-	UserNameExists = "UserName Exists"
+	EmailExists    = "email exists"
+	UserNameExists = "userName exists"
+	// Db
+	RecordNotFound = "record not found"
 )

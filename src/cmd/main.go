@@ -10,9 +10,6 @@ import (
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/pkg/logging"
 )
 
-// @securityDefinition.apikey AuthBearer
-// @in header
-// @name authorization
 func main() {
 	cfg := config.GetConfig()
 	logger := logging.NewLogger(cfg)
