@@ -10,6 +10,25 @@ import (
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/pkg/logging"
 )
 
+// @Car Center API
+// @version 1.0
+// @description Car Store api
+// @termsOfService http://swagger.io/terms/
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
+
+// @host localhost:5005
+// @BasePath /api/v1
+
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @description Type "Bearer" followed by a space and JWT token.
+
 func main() {
 	cfg := config.GetConfig()
 	logger := logging.NewLogger(cfg)

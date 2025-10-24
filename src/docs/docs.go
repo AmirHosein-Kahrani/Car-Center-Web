@@ -9,7 +9,16 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -19,7 +28,7 @@ const docTemplate = `{
             "post": {
                 "security": [
                     {
-                        "AuthBearer": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "create a country",
@@ -73,17 +82,17 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "AuthBearer": []
+                        "BearerAuth": []
                     }
                 ],
-                "description": "create a country",
+                "description": "get a country",
                 "consumes": [
                     "application/json"
                 ],
                 "tags": [
                     "Countries"
                 ],
-                "summary": "create a country",
+                "summary": "GET a country",
                 "parameters": [
                     {
                         "type": "integer",
@@ -123,7 +132,7 @@ const docTemplate = `{
             "put": {
                 "security": [
                     {
-                        "AuthBearer": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Update a country",
@@ -141,6 +150,15 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "name",
+                        "name": "name",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -173,7 +191,7 @@ const docTemplate = `{
             "delete": {
                 "security": [
                     {
-                        "AuthBearer": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Delete a country",
@@ -657,17 +675,25 @@ const docTemplate = `{
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "description": "Type \"Bearer\" followed by a space and JWT token.",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
-	Host:             "",
-	BasePath:         "",
+	Version:          "1.0",
+	Host:             "localhost:5005",
+	BasePath:         "/api/v1",
 	Schemes:          []string{},
 	Title:            "",
-	Description:      "",
+	Description:      "Car Store api",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

@@ -1,14 +1,27 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "Car Store api",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0"
     },
+    "host": "localhost:5005",
+    "basePath": "/api/v1",
     "paths": {
         "/v1/countries/": {
             "post": {
                 "security": [
                     {
-                        "AuthBearer": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "create a country",
@@ -62,17 +75,17 @@
             "get": {
                 "security": [
                     {
-                        "AuthBearer": []
+                        "BearerAuth": []
                     }
                 ],
-                "description": "create a country",
+                "description": "get a country",
                 "consumes": [
                     "application/json"
                 ],
                 "tags": [
                     "Countries"
                 ],
-                "summary": "create a country",
+                "summary": "GET a country",
                 "parameters": [
                     {
                         "type": "integer",
@@ -112,7 +125,7 @@
             "put": {
                 "security": [
                     {
-                        "AuthBearer": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Update a country",
@@ -130,6 +143,15 @@
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "name",
+                        "name": "name",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -162,7 +184,7 @@
             "delete": {
                 "security": [
                     {
-                        "AuthBearer": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Delete a country",
@@ -645,6 +667,14 @@
                     "type": "string"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "description": "Type \"Bearer\" followed by a space and JWT token.",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }

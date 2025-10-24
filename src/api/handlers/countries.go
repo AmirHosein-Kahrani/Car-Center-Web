@@ -29,7 +29,7 @@ func NewCountryHandler(cfg *config.Config) *CountryHandler {
 // @Success 201 {object} helper.BaseHttpResponse{Result=dto.CountryResponse} "Country Response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad Request"
 // @Router /v1/countries/ [post]
-// @Security AuthBearer
+// @Security BearerAuth
 func (h *CountryHandler) Create(c *gin.Context) {
 	req := dto.CreateUpdateCountryRequest{}
 	err := c.ShouldBindJSON(&req)
@@ -56,10 +56,11 @@ func (h *CountryHandler) Create(c *gin.Context) {
 // @Accept json
 // @Produces json
 // @Param id path int true "id"
+// @Param name body string true "name"
 // @Success 201 {object} helper.BaseHttpResponse{Result=dto.CountryResponse} "Country Response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad Request"
 // @Router /v1/countries/{id} [put]
-// @Security AuthBearer
+// @Security BearerAuth
 func (h *CountryHandler) Update(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Params.ByName("id"))
 
@@ -91,7 +92,7 @@ func (h *CountryHandler) Update(c *gin.Context) {
 // @Success 201 {object} helper.BaseHttpResponse "Response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad Request"
 // @Router /v1/countries/{id} [delete]
-// @Security AuthBearer
+// @Security BearerAuth
 func (h *CountryHandler) Delete(c *gin.Context) {
 
 	id, _ := strconv.Atoi(c.Params.ByName("id"))
@@ -108,14 +109,14 @@ func (h *CountryHandler) Delete(c *gin.Context) {
 			helper.GenerateBaseResponseWithError(nil, false, 121, err))
 		return
 	}
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(nil, true, 0))
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(nil, true, 222))
 }
 
 // GET
 
 // GetCountry godoc
-// @summary create a country
-// @Description create a country
+// @summary GET a country
+// @Description get a country
 // @Tags Countries
 // @Accept json
 // @Produces json
@@ -123,7 +124,7 @@ func (h *CountryHandler) Delete(c *gin.Context) {
 // @Success 200 {object} helper.BaseHttpResponse{Result=dto.CountryResponse} "Country Response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad Request"
 // @Router /v1/countries/{id} [get]
-// @Security AuthBearer
+// @Security BearerAuth
 func (h *CountryHandler) GetById(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Params.ByName("id"))
 	if id == 0 {

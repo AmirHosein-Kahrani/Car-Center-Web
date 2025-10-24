@@ -1,3 +1,4 @@
+basePath: /api/v1
 definitions:
   api_handlers.PersonData:
     properties:
@@ -114,8 +115,18 @@ definitions:
       value:
         type: string
     type: object
+host: localhost:5005
 info:
-  contact: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Car Store api
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  version: "1.0"
 paths:
   /v1/countries/:
     post:
@@ -144,7 +155,7 @@ paths:
           schema:
             $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
       security:
-      - AuthBearer: []
+      - BearerAuth: []
       summary: create a country
       tags:
       - Countries
@@ -169,14 +180,14 @@ paths:
           schema:
             $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
       security:
-      - AuthBearer: []
+      - BearerAuth: []
       summary: Delete a country
       tags:
       - Countries
     get:
       consumes:
       - application/json
-      description: create a country
+      description: get a country
       parameters:
       - description: id
         in: path
@@ -198,8 +209,8 @@ paths:
           schema:
             $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
       security:
-      - AuthBearer: []
-      summary: create a country
+      - BearerAuth: []
+      summary: GET a country
       tags:
       - Countries
     put:
@@ -212,6 +223,12 @@ paths:
         name: id
         required: true
         type: integer
+      - description: name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
       responses:
         "201":
           description: Country Response
@@ -227,7 +244,7 @@ paths:
           schema:
             $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
       security:
-      - AuthBearer: []
+      - BearerAuth: []
       summary: Update a country
       tags:
       - Countries
@@ -414,4 +431,10 @@ paths:
       summary: Send Otp To User
       tags:
       - Users
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"
