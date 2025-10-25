@@ -146,3 +146,6 @@ func (h *CountryHandler) GetById(c *gin.Context) {
 // TODO: DON'T FORGET TO WRITE CODE
 // GET BY FILTER
 func (h *CountryHandler) GetByFilter(c *gin.Context) {}
+
+
+

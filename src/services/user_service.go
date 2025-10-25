@@ -43,7 +43,7 @@ func (s *UserService) LoginByUserName(req *dto.LoginByUsernameRequest) (*dto.Tok
 		Where("user_name = ?", req.Username).
 		Preload("UserRoles", func(tx *gorm.DB) *gorm.DB {
 			return tx.Preload("Role")
-		}).Find(&user).Error
+		}).First(&user).Error
 
 	if err != nil {
 		return nil, err

@@ -44,7 +44,7 @@ func (s *OtpService) SetOtp(mobileNumber string, otp string) error {
 		}
 	}
 
-	err = cache.Set[OtpDto](s.redisClient, key, value, s.cfg.Otp.ExpireTime*time.Second)
+	err = cache.Set(s.redisClient, key, value, s.cfg.Otp.ExpireTime*time.Second)
 	if err != nil {
 		return err
 	}
@@ -73,7 +73,6 @@ func (s *OtpService) ValidateOtp(mobileNumber string, otp string) error {
 		if err != nil {
 			return err
 		}
-		return nil
 	}
 	return nil
 }

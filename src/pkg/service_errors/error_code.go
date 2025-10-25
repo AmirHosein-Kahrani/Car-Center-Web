@@ -15,8 +15,9 @@ const (
 	OtpNotValid = "otp_not_valid"
 
 	// User
-	EmailExists    = "email exists"
-	UserNameExists = "userName exists"
+	EmailExists      = "email exists"
+	UserNameExists   = "userName exists"
+	PermissionDenied = "permission denied"
 	// Db
 	RecordNotFound = "record not found"
 )
