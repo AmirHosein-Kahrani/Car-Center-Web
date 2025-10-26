@@ -17,6 +17,7 @@ func Up_1() {
 	database := db.GetDb()
 	createTables(database)
 	createDefaultInformation(database)
+	createCountry(database)
 }
 
 func createTables(database *gorm.DB) {
@@ -33,7 +34,7 @@ func createTables(database *gorm.DB) {
 	tables = addNewTable(database, role, tables)
 	tables = addNewTable(database, userRole, tables)
 
-	database.Migrator().CreateTable(tables...)
+	database.Debug().Migrator().CreateTable(tables...)
 
 	logger.Info(logging.Postgres, logging.Migration, "Tables Created", nil)
 }
@@ -86,6 +87,59 @@ func createAdminUserIfNotExist(database *gorm.DB, u *models.User, roleId int) {
 		database.Create(&u)
 		ur := models.UserRole{UserId: u.Id, RoleId: roleId}
 		database.Create(&ur)
+	}
+}
+func createCountry(database *gorm.DB) {
+	const countStarExp = "count(*)"
+	count := 0
+	database.
+		Model(&models.Country{}).
+		Select(countStarExp).
+		Find(&count)
+	if count == 0 {
+
+		// iran
+		database.Create(&models.Country{Name: "Iran", Cities: &[]models.City{
+			{Name: "Tehran"},
+			{Name: "Isfahan"},
+			{Name: "Shiraz"},
+			{Name: "Chalus"},
+			{Name: "Ahwaz"},
+		}})
+		// usa
+		database.Create(&models.Country{Name: "USA", Cities: &[]models.City{
+			{Name: "New York"},
+			{Name: "Washington"},
+		}})
+
+		// germany
+		database.Create(&models.Country{Name: "Germany", Cities: &[]models.City{
+			{Name: "Berlin"},
+			{Name: "Munich"},
+		}})
+
+		// china
+		database.Create(&models.Country{Name: "China", Cities: &[]models.City{
+			{Name: "Beijing"},
+			{Name: "Shanghai"},
+		}})
+		// Italy
+		database.Create(&models.Country{Name: "Italy", Cities: &[]models.City{
+			{Name: "Roma"},
+			{Name: "Turin"},
+		}})
+		// France
+		database.Create(&models.Country{Name: "France", Cities: &[]models.City{
+			{Name: "Paris"},
+			{Name: "Lyon"},
+		}})
+
+		// Japan
+		database.Create(&models.Country{Name: "Japan", Cities: &[]models.City{
+			{Name: "Kyoto"},
+		}})
+
+		// Italy
 	}
 }
 

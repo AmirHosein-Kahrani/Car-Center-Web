@@ -43,5 +43,5 @@ password:
 jwt: 
   secret: "secret"
   refreshSecret: "refreshSecret"
-  accessTokenExpireDuration: 1440
+  accessTokenExpireDuration: 10000
   refreshTokenExpireDuration: 60

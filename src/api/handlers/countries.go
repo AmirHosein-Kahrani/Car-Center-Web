@@ -57,7 +57,7 @@ func (h *CountryHandler) Create(c *gin.Context) {
 // @Produces json
 // @Param id path int true "id"
 // @Param name body string true "name"
-// @Success 201 {object} helper.BaseHttpResponse{Result=dto.CountryResponse} "Country Response"
+// @Success 200 {object} helper.BaseHttpResponse{Result=dto.CountryResponse} "Country Response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad Request"
 // @Router /v1/countries/{id} [put]
 // @Security BearerAuth
@@ -89,7 +89,7 @@ func (h *CountryHandler) Update(c *gin.Context) {
 // @Accept json
 // @Produces json
 // @Param id path int true "id"
-// @Success 201 {object} helper.BaseHttpResponse "Response"
+// @Success 200 {object} helper.BaseHttpResponse "Response"
 // @Failure 400 {object} helper.BaseHttpResponse "Bad Request"
 // @Router /v1/countries/{id} [delete]
 // @Security BearerAuth
@@ -143,9 +143,34 @@ func (h *CountryHandler) GetById(c *gin.Context) {
 	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(res, true, 0))
 }
 
-// TODO: DON'T FORGET TO WRITE CODE
-// GET BY FILTER
-func (h *CountryHandler) GetByFilter(c *gin.Context) {}
+// Get Countries godoc
+// @summary Get Countries
+// @Description Get Countries
+// @Tags Countries
+// @Accept json
+// @Produces json
+// @Param Request body dto.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.CountryResponse]} "Country Response"
+// @Failure 400 {object} helper.BaseHttpResponse "Bad Request"
+// @Router /v1/countries/get-by-filter [post]
+// @Security BearerAuth
+func (h *CountryHandler) GetByFilter(c *gin.Context) {
 
+	req := dto.PaginationInputWithFilter{}
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest,
+			helper.GenerateBaseResponseWithError(nil, false, 121, err))
+		return
+	}
 
+	res, err := h.services.GetByFilter(c, &req)
 
+	if err != nil {
+		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
+			helper.GenerateBaseResponseWithError(nil, false, 121, err))
+		return
+	}
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse(res, true, 0))
+
+}
