@@ -99,7 +99,7 @@ func createCountry(database *gorm.DB) {
 	if count == 0 {
 
 		// iran
-		database.Create(&models.Country{Name: "Iran", Cities: &[]models.City{
+		database.Create(&models.Country{Name: "Iran", Cities: []models.City{
 			{Name: "Tehran"},
 			{Name: "Isfahan"},
 			{Name: "Shiraz"},
@@ -107,35 +107,35 @@ func createCountry(database *gorm.DB) {
 			{Name: "Ahwaz"},
 		}})
 		// usa
-		database.Create(&models.Country{Name: "USA", Cities: &[]models.City{
+		database.Create(&models.Country{Name: "USA", Cities: []models.City{
 			{Name: "New York"},
 			{Name: "Washington"},
 		}})
 
 		// germany
-		database.Create(&models.Country{Name: "Germany", Cities: &[]models.City{
+		database.Create(&models.Country{Name: "Germany", Cities: []models.City{
 			{Name: "Berlin"},
 			{Name: "Munich"},
 		}})
 
 		// china
-		database.Create(&models.Country{Name: "China", Cities: &[]models.City{
+		database.Create(&models.Country{Name: "China", Cities: []models.City{
 			{Name: "Beijing"},
 			{Name: "Shanghai"},
 		}})
 		// Italy
-		database.Create(&models.Country{Name: "Italy", Cities: &[]models.City{
+		database.Create(&models.Country{Name: "Italy", Cities: []models.City{
 			{Name: "Roma"},
 			{Name: "Turin"},
 		}})
 		// France
-		database.Create(&models.Country{Name: "France", Cities: &[]models.City{
+		database.Create(&models.Country{Name: "France", Cities: []models.City{
 			{Name: "Paris"},
 			{Name: "Lyon"},
 		}})
 
 		// Japan
-		database.Create(&models.Country{Name: "Japan", Cities: &[]models.City{
+		database.Create(&models.Country{Name: "Japan", Cities: []models.City{
 			{Name: "Kyoto"},
 		}})
 
