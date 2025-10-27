@@ -1,32 +1,6 @@
 package models
 
-// type User struct {
-// 	BaseModel
-// 	UserName     string `gorm:"type:varchar(20);not null;unique"`
-// 	FirstName    string `gorm:"type:varchar(15)"`
-// 	LastName     string `gorm:"type:varchar(25)"`
-// 	MobileNumber string `gorm:"type:varchar(11);unique"`
-// 	Email        string `gorm:"type:varchar(64);unique"`
-// 	Password     string `gorm:"type:varchar(255);not null"`
-// 	Enabled      bool   `gorm:"default:true"`
-// 	UserRoles    []UserRole
-// }
-
-// type Role struct {
-// 	BaseModel
-// 	Name      string `gorm:"type:varchar(18);not null;unique"`
-// 	UserRoles []UserRole
-// }
-
-// type UserRole struct {
-// 	BaseModel
-// 	UserId int
-// 	RoleId int
-// 	User   User `gorm:"foreignKey:UserId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
-// 	Role   Role `gorm:"foreignKey:RoleId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
-// }
-
-// /*
+/*
 
 // user -> n roles
 // role -> n users
@@ -36,7 +10,7 @@ package models
 // user_role > user_id , role_id , ...
 // role
 
-// */
+*/
 
 type User struct {
 	BaseModel
