@@ -21,20 +21,24 @@ func Up_1() {
 }
 
 func createTables(database *gorm.DB) {
+
+	// tables
 	tables := []interface{}{}
-	country := models.Country{}
-	city := models.City{}
-	user := models.User{}
-	role := models.Role{}
-	userRole := models.UserRole{}
 
-	tables = addNewTable(database, country, tables)
-	tables = addNewTable(database, city, tables)
-	tables = addNewTable(database, user, tables)
-	tables = addNewTable(database, role, tables)
-	tables = addNewTable(database, userRole, tables)
+	//  Basic
+	tables = addNewTable(database, models.Country{}, tables)
+	tables = addNewTable(database, models.City{}, tables)
+	// User
+	tables = addNewTable(database, models.User{}, tables)
+	tables = addNewTable(database, models.Role{}, tables)
+	tables = addNewTable(database, models.UserRole{}, tables)
 
-	database.Debug().Migrator().CreateTable(tables...)
+	//  Car
+	err := database.Debug().Migrator().CreateTable(tables...)
+
+	if err != nil {
+		panic(err)
+	}
 
 	logger.Info(logging.Postgres, logging.Migration, "Tables Created", nil)
 }
