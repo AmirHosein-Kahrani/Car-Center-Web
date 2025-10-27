@@ -107,8 +107,9 @@ func (s *BaseService[T, Tc, Tu, Tr]) Delete(ctx context.Context, id int) error {
 func (s *BaseService[T, Tc, Tu, Tr]) GetById(ctx context.Context, id int) (*Tr, error) {
 
 	model := new(T)
+	db := Preload(s.Database, s.Preloads)
 
-	err := s.Database.Where("id = ? and deleted_by is null", id).
+	err := db.Where("id = ? and deleted_by is null", id).
 		First(model).Error
 
 	if err != nil {

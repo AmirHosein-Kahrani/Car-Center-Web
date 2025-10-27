@@ -28,9 +28,9 @@ type CarModel struct {
 	Company            Company `gorm:"foreignKey:CompanyId"`
 	CompanyId          int
 	CarType            CarType `gorm:"foreignKey:CarTypeId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
-	CarTypId           int
-	Gearbox            Gearbox `gorm:"foreignKey:GearBoxId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
-	GearBoxId          int
+	CarTypeId          int
+	Gearbox            Gearbox `gorm:"foreignKey:GearboxId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
+	GearboxId          int
 	CarModelColors     []CarModelColor
 	CarModelYears      []CarModelYear
 	CarModelProperties []CarModelProperty
@@ -42,7 +42,7 @@ type CarModelColor struct {
 	CarModel   CarModel `gorm:"foreignKey:CarModelId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
 	CarModelId int
 	Color      Color `gorm:"foreignKey:ColorId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
-	ColorId    Color
+	ColorId    int
 }
 
 type CarModelYear struct {
@@ -59,7 +59,7 @@ type CarModelImage struct {
 	CarModel    CarModel `gorm:"foreignKey:CarModelId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
 	CarModelId  int
 	Image       File `gorm:"foreignKey:ImageId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
-	ImageId     Color
+	ImageId     int
 	IsMainImage bool
 }
 

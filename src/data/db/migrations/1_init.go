@@ -25,15 +25,32 @@ func createTables(database *gorm.DB) {
 	// tables
 	tables := []interface{}{}
 
-	//  Basic
 	tables = addNewTable(database, models.Country{}, tables)
 	tables = addNewTable(database, models.City{}, tables)
+	tables = addNewTable(database, models.File{}, tables)
+	tables = addNewTable(database, models.PersianYear{}, tables)
+	// Property
+	tables = addNewTable(database, models.PropertyCategory{}, tables)
+	tables = addNewTable(database, models.Property{}, tables)
+
 	// User
 	tables = addNewTable(database, models.User{}, tables)
 	tables = addNewTable(database, models.Role{}, tables)
 	tables = addNewTable(database, models.UserRole{}, tables)
 
-	//  Car
+	// Car
+	tables = addNewTable(database, models.Company{}, tables)
+	tables = addNewTable(database, models.Gearbox{}, tables)
+	tables = addNewTable(database, models.Color{}, tables)
+	tables = addNewTable(database, models.CarType{}, tables)
+
+	tables = addNewTable(database, models.CarModel{}, tables)
+	tables = addNewTable(database, models.CarModelColor{}, tables)
+	tables = addNewTable(database, models.CarModelYear{}, tables)
+	tables = addNewTable(database, models.CarModelImage{}, tables)
+	tables = addNewTable(database, models.CarModelPriceHistory{}, tables)
+	tables = addNewTable(database, models.CarModelProperty{}, tables)
+	// ! switch debug mode in production
 	err := database.Debug().Migrator().CreateTable(tables...)
 
 	if err != nil {
@@ -85,7 +102,7 @@ func createAdminUserIfNotExist(database *gorm.DB, u *models.User, roleId int) {
 	database.
 		Model(&models.User{}).
 		Select("1").
-		Where("username = ?", u.UserName).
+		Where("user_name = ?", u.UserName).
 		First(&exist)
 	if exist == 0 {
 		database.Create(&u)
