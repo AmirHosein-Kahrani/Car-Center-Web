@@ -538,6 +538,266 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/files/": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "create a file",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "tags": [
+                    "Files"
+                ],
+                "summary": "create a file",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "description",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "file",
+                        "description": "create a file",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "File Response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Result": {
+                                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.FileResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/files/get-by-filter": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Files",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Files"
+                ],
+                "summary": "Get Files",
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "File Response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_FileResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/files/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "get a file",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Files"
+                ],
+                "summary": "GET a file",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "File Response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Result": {
+                                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.FileResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update a file",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Files"
+                ],
+                "summary": "Update a file",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update a File",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateFileRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "File Response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Result": {
+                                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.FileResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete a file",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Files"
+                ],
+                "summary": "Delete a file",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/health/": {
             "get": {
                 "description": "Health Check",
@@ -906,6 +1166,26 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.FileResponse": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "directory": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "mediaType": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.Filter": {
             "type": "object",
             "properties": {
@@ -1007,6 +1287,32 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_FileResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.FileResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter": {
             "type": "object",
             "properties": {
@@ -1087,6 +1393,14 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "sort": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateFileRequest": {
+            "type": "object",
+            "properties": {
+                "description": {
                     "type": "string"
                 }
             }

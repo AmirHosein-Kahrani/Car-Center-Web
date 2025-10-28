@@ -57,6 +57,19 @@ definitions:
     required:
     - name
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.FileResponse:
+    properties:
+      description:
+        type: string
+      directory:
+        type: string
+      id:
+        type: integer
+      mediaType:
+        type: string
+      name:
+        type: string
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.Filter:
     properties:
       filterType:
@@ -125,6 +138,23 @@ definitions:
       totalRows:
         type: integer
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_FileResponse:
+    properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.FileResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter:
     properties:
       filter:
@@ -182,6 +212,11 @@ definitions:
       col_id:
         type: string
       sort:
+        type: string
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateFileRequest:
+    properties:
+      description:
         type: string
     type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse:
@@ -523,6 +558,159 @@ paths:
       summary: Get Countries
       tags:
       - Countries
+  /v1/files/:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: create a file
+      parameters:
+      - in: formData
+        name: description
+        type: string
+      - description: create a file
+        in: formData
+        name: file
+        required: true
+        type: file
+      responses:
+        "201":
+          description: File Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.FileResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: create a file
+      tags:
+      - Files
+  /v1/files/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a file
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Response
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a file
+      tags:
+      - Files
+    get:
+      consumes:
+      - application/json
+      description: get a file
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: File Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.FileResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: GET a file
+      tags:
+      - Files
+    put:
+      consumes:
+      - application/json
+      description: Update a file
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a File
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateFileRequest'
+      responses:
+        "200":
+          description: File Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.FileResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a file
+      tags:
+      - Files
+  /v1/files/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get Files
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: File Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_FileResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Get Files
+      tags:
+      - Files
   /v1/health/:
     get:
       consumes:
