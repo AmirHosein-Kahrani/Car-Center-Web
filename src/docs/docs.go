@@ -204,15 +204,6 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
-                    },
-                    {
-                        "description": "Update a City",
-                        "name": "Request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateUpdateCityRequest"
-                        }
                     }
                 ],
                 "responses": {

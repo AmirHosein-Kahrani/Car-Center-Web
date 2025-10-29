@@ -373,12 +373,6 @@ paths:
         name: id
         required: true
         type: integer
-      - description: Update a City
-        in: body
-        name: Request
-        required: true
-        schema:
-          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateUpdateCityRequest'
       responses:
         "200":
           description: City Response
