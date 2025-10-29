@@ -90,7 +90,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "cities"
+                    "Cities"
                 ],
                 "summary": "Get cities",
                 "parameters": [
@@ -1411,7 +1411,7 @@ const docTemplate = `{
                 "error": {},
                 "result": {},
                 "resultCode": {
-                    "type": "integer"
+                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.ResultCode"
                 },
                 "success": {
                     "type": "boolean"
@@ -1423,6 +1423,31 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.ResultCode": {
+            "type": "integer",
+            "enum": [
+                0,
+                40001,
+                40101,
+                40301,
+                40401,
+                42901,
+                42902,
+                50001,
+                50002
+            ],
+            "x-enum-varnames": [
+                "Success",
+                "ValidationError",
+                "AuthError",
+                "ForbiddenError",
+                "NotFoundError",
+                "LimiterError",
+                "OtpLimiterError",
+                "CustomRecovery",
+                "InternatlError"
+            ]
         },
         "github_com_AmirHosein-Kahrani_Car-Center-Web_api_validations.ValidationErrors": {
             "type": "object",

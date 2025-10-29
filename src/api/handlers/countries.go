@@ -1,11 +1,8 @@
 package handlers
 
 import (
-	"net/http"
-	"strconv"
-
-	"github.com/AmirHosein-Kahrani/Car-Center-Web/api/dto"
-	"github.com/AmirHosein-Kahrani/Car-Center-Web/api/helper"
+	_ "github.com/AmirHosein-Kahrani/Car-Center-Web/api/dto"
+	_ "github.com/AmirHosein-Kahrani/Car-Center-Web/api/helper"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/config"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/services"
 	"github.com/gin-gonic/gin"
@@ -31,22 +28,7 @@ func NewCountryHandler(cfg *config.Config) *CountryHandler {
 // @Router /v1/countries/ [post]
 // @Security BearerAuth
 func (h *CountryHandler) Create(c *gin.Context) {
-	req := dto.CreateUpdateCountryRequest{}
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest,
-			helper.GenerateBaseResponseWithError(nil, false, 121, err))
-		return
-	}
-
-	res, err := h.services.CreateCountry(c, &req)
-
-	if err != nil {
-		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, 121, err))
-		return
-	}
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(res, true, 0))
+	Create(c, h.services.CreateCountry)
 }
 
 // UpdateCountry godoc
@@ -62,24 +44,7 @@ func (h *CountryHandler) Create(c *gin.Context) {
 // @Router /v1/countries/{id} [put]
 // @Security BearerAuth
 func (h *CountryHandler) Update(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Params.ByName("id"))
-
-	req := dto.CreateUpdateCountryRequest{}
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest,
-			helper.GenerateBaseResponseWithError(nil, false, 121, err))
-		return
-	}
-
-	res, err := h.services.UpdateCountry(c, id, &req)
-
-	if err != nil {
-		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, 121, err))
-		return
-	}
-	c.JSON(http.StatusOK, helper.GenerateBaseResponse(res, true, 0))
+	Update(c, h.services.UpdateCountry)
 }
 
 // DeleteCountry godoc
@@ -94,22 +59,7 @@ func (h *CountryHandler) Update(c *gin.Context) {
 // @Router /v1/countries/{id} [delete]
 // @Security BearerAuth
 func (h *CountryHandler) Delete(c *gin.Context) {
-
-	id, _ := strconv.Atoi(c.Params.ByName("id"))
-	if id == 0 {
-		c.AbortWithStatusJSON(http.StatusNotFound,
-			helper.GenerateBaseResponse(nil, false, 121))
-		return
-	}
-
-	err := h.services.DeleteCountry(c, id)
-
-	if err != nil {
-		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, 121, err))
-		return
-	}
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(nil, true, 222))
+	Delete(c, h.services.DeleteCountry)
 }
 
 // GET
@@ -126,21 +76,7 @@ func (h *CountryHandler) Delete(c *gin.Context) {
 // @Router /v1/countries/{id} [get]
 // @Security BearerAuth
 func (h *CountryHandler) GetById(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Params.ByName("id"))
-	if id == 0 {
-		c.AbortWithStatusJSON(http.StatusNotFound,
-			helper.GenerateBaseResponse(nil, false, 121))
-		return
-	}
-
-	res, err := h.services.GetCountryById(c, id)
-
-	if err != nil {
-		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, 121, err))
-		return
-	}
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(res, true, 0))
+	GetById(c, h.services.GetCountryById)
 }
 
 // Get Countries godoc
@@ -155,22 +91,5 @@ func (h *CountryHandler) GetById(c *gin.Context) {
 // @Router /v1/countries/get-by-filter [post]
 // @Security BearerAuth
 func (h *CountryHandler) GetByFilter(c *gin.Context) {
-
-	req := dto.PaginationInputWithFilter{}
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest,
-			helper.GenerateBaseResponseWithError(nil, false, 121, err))
-		return
-	}
-
-	res, err := h.services.GetByFilter(c, &req)
-
-	if err != nil {
-		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, 121, err))
-		return
-	}
-	c.JSON(http.StatusOK, helper.GenerateBaseResponse(res, true, 0))
-
+	GetByFilter(c, h.services.GetByFilter)
 }

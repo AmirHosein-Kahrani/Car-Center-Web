@@ -37,17 +37,17 @@ func (h *UserHandler) LoginByUserName(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest,
 			helper.GenerateBaseResponseWithValidationError(
-				nil, false, -1, err))
+				nil, false, helper.ValidationError, err))
 		return
 	}
 	token, err := h.service.LoginByUserName(req)
 	if err != nil {
 		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
 			helper.GenerateBaseResponseWithError(
-				nil, false, -1, err))
+				nil, false, helper.InternatlError, err))
 		return
 	}
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, 0))
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, helper.Success))
 }
 
 // RegisterByUserName godoc
@@ -68,17 +68,17 @@ func (h *UserHandler) RegisterByUserName(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest,
 			helper.GenerateBaseResponseWithValidationError(
-				nil, false, -1, err))
+				nil, false, helper.ValidationError, err))
 		return
 	}
 	err = h.service.RegisterByUserName(req)
 	if err != nil {
 		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
 			helper.GenerateBaseResponseWithError(
-				nil, false, -1, err))
+				nil, false, helper.InternatlError, err))
 		return
 	}
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(nil, true, 0))
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(nil, true, helper.Success))
 }
 
 // RegisterLoginByMobileRequest godoc
@@ -98,17 +98,17 @@ func (h *UserHandler) RegisterLoginByMobileRequest(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest,
 			helper.GenerateBaseResponseWithValidationError(
-				nil, false, -1, err))
+				nil, false, helper.ValidationError, err))
 		return
 	}
 	token, err := h.service.RegisterLoginByMobileNumber(req)
 	if err != nil {
 		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
 			helper.GenerateBaseResponseWithError(
-				nil, false, -1, err))
+				nil, false, helper.InternatlError, err))
 		return
 	}
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, 0))
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, helper.Success))
 }
 
 // SendOtp godoc
@@ -128,16 +128,16 @@ func (h *UserHandler) SendOtp(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest,
 			helper.GenerateBaseResponseWithValidationError(
-				nil, false, -1, err))
+				nil, false, helper.ValidationError, err))
 		return
 	}
 	err = h.service.SetOtp(req)
 	if err != nil {
 		c.AbortWithStatusJSON(helper.TranslateErrorToStatusCode(err),
 			helper.GenerateBaseResponseWithError(
-				nil, false, -1, err))
+				nil, false, helper.InternatlError, err))
 		return
 	}
 	// *Call internal SMS   Service
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(nil, true, 0))
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(nil, true, helper.Success))
 }

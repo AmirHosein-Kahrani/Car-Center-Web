@@ -7,18 +7,18 @@ import "github.com/AmirHosein-Kahrani/Car-Center-Web/api/validations"
 type BaseHttpResponse struct {
 	Result           any                             `json:"result"`
 	Succuss          bool                            `json:"success"`
-	ResultCode       int                             `json:"resultCode"`
+	ResultCode       ResultCode                      `json:"resultCode"`
 	ValidationErrors *[]validations.ValidationErrors `json:"validationErrors"`
 	Error            any                             `json:"error"`
 }
 
-func GenerateBaseResponse(result any, success bool, resultCode int) *BaseHttpResponse {
+func GenerateBaseResponse(result any, success bool, resultCode ResultCode) *BaseHttpResponse {
 	return &BaseHttpResponse{Result: result,
 		Succuss:    success,
 		ResultCode: resultCode}
 }
 
-func GenerateBaseResponseWithError(result any, success bool, resultCode int, err error) *BaseHttpResponse {
+func GenerateBaseResponseWithError(result any, success bool, resultCode ResultCode, err error) *BaseHttpResponse {
 	return &BaseHttpResponse{Result: result,
 		Succuss:    success,
 		ResultCode: resultCode,
@@ -26,17 +26,17 @@ func GenerateBaseResponseWithError(result any, success bool, resultCode int, err
 
 }
 
-func GenerateBaseResponseWithValidationError(result any, success bool, resultCode int, err error) *BaseHttpResponse {
+func GenerateBaseResponseWithValidationError(result any, success bool, resultCode ResultCode, err error) *BaseHttpResponse {
 	return &BaseHttpResponse{Result: result,
 		Succuss:          success,
 		ResultCode:       resultCode,
 		ValidationErrors: validations.GetValidationErrors(err)}
 }
 
-func GenerateBaseResponseWithAnyError(result any, success bool, resultCode int, err interface{}) *BaseHttpResponse {
+func GenerateBaseResponseWithAnyError(result any, success bool, resultCode ResultCode, err interface{}) *BaseHttpResponse {
 	return &BaseHttpResponse{Result: result,
-		Succuss:          success,
-		ResultCode:       resultCode,
-		Error: err,
+		Succuss:    success,
+		ResultCode: resultCode,
+		Error:      err,
 	}
 }
