@@ -8,6 +8,7 @@ import (
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/api/validations"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/config"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/docs"
+	"github.com/AmirHosein-Kahrani/Car-Center-Web/pkg/logging"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
@@ -15,6 +16,8 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
+
+var Logger = logging.NewLogger(config.GetConfig())
 
 func InitServer(cfg *config.Config) {
 
@@ -34,7 +37,10 @@ func InitServer(cfg *config.Config) {
 
 	RegisterRoutes(r, cfg)
 
-	r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
+	err := r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
+	if err != nil {
+		Logger.Fatal(logging.General, logging.StartUp, err.Error(), nil)
+	}
 }
 
 func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
@@ -53,7 +59,9 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		countries := v1.Group("/countries", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		cities := v1.Group("/cities", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		files := v1.Group("/files", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-
+		// Property
+		properties := v1.Group("/properties", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		propertyCategories := v1.Group("/property-categories", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		// Test
 		routers.TestRouter(test_router)
 		routers.Health(health)
@@ -63,14 +71,23 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		routers.Country(countries, cfg)
 		routers.City(cities, cfg)
 		routers.File(files, cfg)
+		// Property
+		routers.Property(properties, cfg)
+		routers.Property(propertyCategories, cfg)
 	}
 }
 
 func RegisterValidator() {
 	val, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
-		val.RegisterValidation("mobile", validations.IranianPhone_validator, true)
-		val.RegisterValidation("valid_pass", validations.PasswordValidator, true)
+		err := val.RegisterValidation("mobile", validations.IranianPhone_validator, true)
+		if err != nil {
+			Logger.Error(logging.Validation, logging.StartUp, err.Error(), nil)
+		}
+		err = val.RegisterValidation("valid_pass", validations.PasswordValidator, true)
+		if err != nil {
+			Logger.Error(logging.Validation, logging.StartUp, err.Error(), nil)
+		}
 	}
 }
 
