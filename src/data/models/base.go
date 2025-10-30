@@ -39,3 +39,4 @@ type File struct {
 	Description string `gorm:"size:500;type:string;not null"`
 	MediaType   string `gorm:"size:20;type:string;not null"`
 }
+

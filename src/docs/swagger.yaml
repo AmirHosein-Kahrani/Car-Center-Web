@@ -17,8 +17,19 @@ definitions:
     - last_name
     - mobile_number
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelColorResponse:
+    properties:
+      color:
+        $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.ColorResponse'
+      id:
+        type: integer
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelResponse:
     properties:
+      carModelColors:
+        items:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelColorResponse'
+        type: array
       carType:
         $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarTypeResponse'
       company:
@@ -41,6 +52,15 @@ definitions:
     properties:
       country:
         $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CountryResponse'
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.ColorResponse:
+    properties:
+      hexCode:
+        type: string
       id:
         type: integer
       name:
@@ -70,6 +90,16 @@ definitions:
       name:
         type: string
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelColorRequest:
+    properties:
+      carModelId:
+        type: integer
+      colorId:
+        type: integer
+    required:
+    - carModelId
+    - colorId
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelRequest:
     properties:
       carTypeId:
@@ -96,6 +126,17 @@ definitions:
         type: string
     required:
     - name
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateColorRequest:
+    properties:
+      hexCode:
+        maxLength: 7
+        minLength: 7
+        type: string
+      name:
+        maxLength: 15
+        minLength: 3
+        type: string
     type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCompanyRequest:
     properties:
@@ -229,6 +270,23 @@ definitions:
     - password
     - username
     type: object
+  ? github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelColorResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelColorResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
   ? github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelResponse
   : properties:
       hasNextPage:
@@ -272,6 +330,23 @@ definitions:
       items:
         items:
           $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CityResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_ColorResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.ColorResponse'
         type: array
       pageNumber:
         type: integer
@@ -471,6 +546,13 @@ definitions:
       sort:
         type: string
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelColorRequest:
+    properties:
+      carModelId:
+        type: integer
+      colorId:
+        type: integer
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelRequest:
     properties:
       carTypeId:
@@ -490,6 +572,17 @@ definitions:
         type: string
     required:
     - name
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateColorRequest:
+    properties:
+      hexCode:
+        maxLength: 7
+        minLength: 7
+        type: string
+      name:
+        maxLength: 15
+        minLength: 3
+        type: string
     type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCompanyRequest:
     properties:
@@ -600,6 +693,157 @@ info:
   termsOfService: http://swagger.io/terms/
   version: "1.0"
 paths:
+  /v1/car-model-colors/:
+    post:
+      consumes:
+      - application/json
+      description: create a CarModelColor
+      parameters:
+      - description: create a CarModelColor
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelColorRequest'
+      responses:
+        "201":
+          description: CarModelColor Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelColorResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: create a CarModelColor
+      tags:
+      - CarModelColors
+  /v1/car-model-colors/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a CarModelColor
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Response
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a CarModelColor
+      tags:
+      - CarModelColors
+    get:
+      consumes:
+      - application/json
+      description: get a CarModelColor
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: CarModelColor Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelColorResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: GET a CarModelColor
+      tags:
+      - CarModelColors
+    put:
+      consumes:
+      - application/json
+      description: Update a CarModelColor
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a CarModelColor
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelColorRequest'
+      responses:
+        "200":
+          description: CarModelColor Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelColorResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a CarModelColor
+      tags:
+      - CarModelColors
+  /v1/car-model-colors/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get car-model-colors
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: CarModelColor Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelColorResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Get car-model-colors
+      tags:
+      - CarModelColors
   /v1/car-models/:
     post:
       consumes:
@@ -1053,6 +1297,157 @@ paths:
       summary: Get cities
       tags:
       - Cities
+  /v1/colors/:
+    post:
+      consumes:
+      - application/json
+      description: create a Color
+      parameters:
+      - description: create a Color
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateColorRequest'
+      responses:
+        "201":
+          description: Color Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.ColorResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: create a Color
+      tags:
+      - Colors
+  /v1/colors/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a Color
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Response
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a Color
+      tags:
+      - Colors
+    get:
+      consumes:
+      - application/json
+      description: get a Color
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Color Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.ColorResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: GET a Color
+      tags:
+      - Colors
+    put:
+      consumes:
+      - application/json
+      description: Update a Color
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a Color
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateColorRequest'
+      responses:
+        "200":
+          description: Color Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.ColorResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a Color
+      tags:
+      - Colors
+  /v1/colors/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get colors
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: Color Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_ColorResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Get colors
+      tags:
+      - Colors
   /v1/companies/:
     post:
       consumes:
