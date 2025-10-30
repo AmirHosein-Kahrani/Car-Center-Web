@@ -1,6 +1,8 @@
 package migrations
 
 import (
+	"time"
+
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/config"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/constants"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/data/db"
@@ -21,14 +23,11 @@ func Up_1() {
 	createTables(database)
 	createDefaultInformation(database)
 	createCountry(database)
-
 	createPropertyCategory(database)
-
 	createCarType(database)
 	createGearbox(database)
-
 	createColor(database)
-
+	createYear(database)
 }
 
 func createTables(database *gorm.DB) {
@@ -191,10 +190,6 @@ func createCountry(database *gorm.DB) {
 	}
 }
 
-func Down_1() {
-
-}
-
 func createPropertyCategory(database *gorm.DB) {
 	count := 0
 
@@ -329,4 +324,60 @@ func createColor(database *gorm.DB) {
 		database.Create(&models.Color{Name: "White", HexCode: "#ffffff"})
 		database.Create(&models.Color{Name: "Blue", HexCode: "#0000ff"})
 	}
+}
+
+func createYear(database *gorm.DB) {
+	count := 0
+	database.
+		Model(&models.PersianYear{}).
+		Select(countStarExp).
+		Find(&count)
+	if count == 0 {
+
+		database.Create(&models.PersianYear{
+			PersianTitle: "1402",
+			Year:         1402,
+			StartAt:      time.Date(2023, time.Month(3), 21, 0, 0, 0, 0, time.UTC),
+			EndAt:        time.Date(2024, time.Month(3), 20, 0, 0, 0, 0, time.UTC),
+		})
+
+		database.Create(&models.PersianYear{
+			PersianTitle: "1401",
+			Year:         1401,
+			StartAt:      time.Date(2022, time.Month(3), 21, 0, 0, 0, 0, time.UTC),
+			EndAt:        time.Date(2023, time.Month(3), 21, 0, 0, 0, 0, time.UTC),
+		})
+
+		database.Create(&models.PersianYear{
+			PersianTitle: "1400",
+			Year:         1400,
+			StartAt:      time.Date(2021, time.Month(3), 21, 0, 0, 0, 0, time.UTC),
+			EndAt:        time.Date(2022, time.Month(3), 21, 0, 0, 0, 0, time.UTC),
+		})
+
+		database.Create(&models.PersianYear{
+			PersianTitle: "1399",
+			Year:         1399,
+			StartAt:      time.Date(2020, time.Month(3), 20, 0, 0, 0, 0, time.UTC),
+			EndAt:        time.Date(2021, time.Month(3), 21, 0, 0, 0, 0, time.UTC),
+		})
+
+		database.Create(&models.PersianYear{
+			PersianTitle: "1398",
+			Year:         1398,
+			StartAt:      time.Date(2019, time.Month(3), 21, 0, 0, 0, 0, time.UTC),
+			EndAt:        time.Date(2020, time.Month(3), 20, 0, 0, 0, 0, time.UTC),
+		})
+
+		database.Create(&models.PersianYear{
+			PersianTitle: "1397",
+			Year:         1397,
+			StartAt:      time.Date(2018, time.Month(3), 21, 0, 0, 0, 0, time.UTC),
+			EndAt:        time.Date(2019, time.Month(3), 21, 0, 0, 0, 0, time.UTC),
+		})
+	}
+}
+
+func Down_1() {
+
 }
