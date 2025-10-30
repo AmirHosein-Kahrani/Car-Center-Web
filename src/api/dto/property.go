@@ -1,7 +1,7 @@
 package dto
 
 type CreatePropertyCategoryRequest struct {
-	Name string `json:"name" binding:"required,alpha,min=3,max=15"`
+	Name string `json:"name" binding:"required,alpha,min=3,max=50"`
 	Icon string `json:"icon" binding:"max=1000"`
 }
 type UpdatePropertyCategoryRequest struct {
@@ -17,7 +17,7 @@ type PropertyCategoryResponse struct {
 }
 
 type CreatePropertyRequest struct {
-	Name        string `json:"name" binding:"required,alpha,min=3,max=15"`
+	Name        string `json:"name" binding:"required,alpha,min=3,max=50"`
 	CategoryId  int    `json:"categoryId" binding:"required"`
 	Icon        string `json:"icon" binding:"min=1,max=1000"`
 	Description string `json:"description" binding:"max=1000"`

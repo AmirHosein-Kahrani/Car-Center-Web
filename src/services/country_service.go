@@ -20,7 +20,7 @@ func NewCountryService(cfg *config.Config) *CountryService {
 			Database: db.GetDb(),
 			Logger:   logging.NewLogger(cfg),
 			// Preloads: []Preload{{string: "Cities.Region"}},
-			Preloads: []preload{{string: "Cities"}},
+			Preloads: []preload{{string: "Cities"}, {string: "Companies"}},
 		},
 	}
 }
