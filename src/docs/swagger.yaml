@@ -17,6 +17,19 @@ definitions:
     - last_name
     - mobile_number
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelResponse:
+    properties:
+      carType:
+        $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarTypeResponse'
+      company:
+        $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CompanyResponse'
+      gearbox:
+        $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.GearboxResponse'
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarTypeResponse:
     properties:
       id:
@@ -56,6 +69,24 @@ definitions:
         type: integer
       name:
         type: string
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelRequest:
+    properties:
+      carTypeId:
+        type: integer
+      companyId:
+        type: integer
+      gearboxId:
+        type: integer
+      name:
+        maxLength: 15
+        minLength: 3
+        type: string
+    required:
+    - carTypeId
+    - companyId
+    - gearboxId
+    - name
     type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarTypeRequest:
     properties:
@@ -197,6 +228,23 @@ definitions:
     required:
     - password
     - username
+    type: object
+  ? github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
     type: object
   ? github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarTypeResponse
   : properties:
@@ -423,6 +471,17 @@ definitions:
       sort:
         type: string
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelRequest:
+    properties:
+      carTypeId:
+        type: integer
+      companyId:
+        type: integer
+      gearboxId:
+        type: integer
+      name:
+        type: string
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarTypeRequest:
     properties:
       name:
@@ -541,6 +600,157 @@ info:
   termsOfService: http://swagger.io/terms/
   version: "1.0"
 paths:
+  /v1/car-models/:
+    post:
+      consumes:
+      - application/json
+      description: create a CarModel
+      parameters:
+      - description: create a CarModel
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelRequest'
+      responses:
+        "201":
+          description: CarModel Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: create a CarModel
+      tags:
+      - CarModels
+  /v1/car-models/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a CarModel
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Response
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a CarModel
+      tags:
+      - CarModels
+    get:
+      consumes:
+      - application/json
+      description: get a CarModel
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: CarModel Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: GET a CarModel
+      tags:
+      - CarModels
+    put:
+      consumes:
+      - application/json
+      description: Update a CarModel
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a CarModel
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelRequest'
+      responses:
+        "200":
+          description: CarModel Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a CarModel
+      tags:
+      - CarModels
+  /v1/car-models/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get car-models
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: CarModel Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Get car-models
+      tags:
+      - CarModels
   /v1/car-types/:
     post:
       consumes:

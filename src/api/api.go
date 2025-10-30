@@ -49,10 +49,11 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 
 	v1 := api.Group("/v1/")
 	{
+
+		//-----------------------------------
 		// Test
 		health := v1.Group("/health")
 		test_router := v1.Group("/test" /*, middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"})*/)
-
 		// User
 		users := v1.Group("/users")
 		// Base
@@ -60,14 +61,15 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		cities := v1.Group("/cities", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		files := v1.Group("/files", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		companies := v1.Group("/companies", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-
 		// Property
 		properties := v1.Group("/properties", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		propertyCategories := v1.Group("/property-categories", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
-
 		// Car
 		carTypes := v1.Group("/car-types", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		gearboxes := v1.Group("/gearboxes", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+		carModels := v1.Group("/car-models", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
+
+		//-----------------------------------
 		// Test
 		routers.TestRouter(test_router)
 		routers.Health(health)
@@ -84,7 +86,9 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		// Car
 		routers.CarType(carTypes, cfg)
 		routers.Gearbox(gearboxes, cfg)
+		routers.CarModel(carModels, cfg)
 
+		//-----------------------------------
 	}
 }
 
