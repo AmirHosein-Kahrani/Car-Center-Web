@@ -50,7 +50,7 @@ type CarModelYear struct {
 	CarModel               CarModel    `gorm:"foreignKey:CarModelId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
 	CarModelId             int         `gorm:"uniqueindex:idx CarModelId PersianYearId"`
 	PersianYear            PersianYear `gorm:"foreignKey:PersianYearId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
-	PersianYearId          int         `gorm:"uniqueindex:idx CarModelId PersianYearId"` 
+	PersianYearId          int         `gorm:"uniqueindex:idx CarModelId PersianYearId"`
 	CarModelPriceHistories []CarModelPriceHistory
 }
 
@@ -67,7 +67,7 @@ type CarModelPriceHistory struct {
 	BaseModel
 	CarModelYear   CarModelYear `gorm:"foreignKey:CarModelYearId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
 	CarModelYearId int
-	Price          float32   `gorm:"type:decimal(10,2);not null"`
+	Price          float64   `gorm:"type:decimal(10,2);not null"`
 	PriceAt        time.Time `gorm:"type:TIMESTAMP with time zone;not null"`
 }
 
