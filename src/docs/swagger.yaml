@@ -24,11 +24,26 @@ definitions:
       id:
         type: integer
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPriceHistoryResponse:
+    properties:
+      carModelYearId:
+        type: integer
+      id:
+        type: integer
+      price:
+        type: number
+      priceAt:
+        type: string
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelResponse:
     properties:
       carModelColors:
         items:
           $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelColorResponse'
+        type: array
+      carModelyears:
+        items:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelYearResponse'
         type: array
       carType:
         $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarTypeResponse'
@@ -40,6 +55,19 @@ definitions:
         type: integer
       name:
         type: string
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelYearResponse:
+    properties:
+      carModelId:
+        type: integer
+      carModelPriceHistories:
+        items:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPriceHistoryResponse'
+        type: array
+      id:
+        type: integer
+      persianYear:
+        $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PersianYearWithoutDateResponse'
     type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarTypeResponse:
     properties:
@@ -100,6 +128,19 @@ definitions:
     - carModelId
     - colorId
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelPriceHistoryRequest:
+    properties:
+      carModelYearId:
+        type: integer
+      price:
+        type: number
+      priceAt:
+        type: string
+    required:
+    - carModelYearId
+    - price
+    - priceAt
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelRequest:
     properties:
       carTypeId:
@@ -117,6 +158,16 @@ definitions:
     - companyId
     - gearboxId
     - name
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelYearRequest:
+    properties:
+      carModelId:
+        type: integer
+      persianYearId:
+        type: integer
+    required:
+    - carModelId
+    - persianYearId
     type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarTypeRequest:
     properties:
@@ -158,6 +209,24 @@ definitions:
         type: string
     required:
     - name
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreatePersianYearRequest:
+    properties:
+      endAt:
+        type: string
+      persianTitle:
+        maxLength: 4
+        minLength: 4
+        type: string
+      startAt:
+        type: string
+      year:
+        type: integer
+    required:
+    - endAt
+    - persianTitle
+    - startAt
+    - year
     type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreatePropertyCategoryRequest:
     properties:
@@ -287,6 +356,23 @@ definitions:
       totalRows:
         type: integer
     type: object
+  ? github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelPriceHistoryResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPriceHistoryResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
   ? github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelResponse
   : properties:
       hasNextPage:
@@ -296,6 +382,23 @@ definitions:
       items:
         items:
           $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelYearResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelYearResponse'
         type: array
       pageNumber:
         type: integer
@@ -423,6 +526,23 @@ definitions:
       totalRows:
         type: integer
     type: object
+  ? github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_PersianYearResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PersianYearResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
   ? github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_PropertyCategoryResponse
   : properties:
       hasNextPage:
@@ -471,6 +591,28 @@ definitions:
         items:
           $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.Sort'
         type: array
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PersianYearResponse:
+    properties:
+      endAt:
+        type: string
+      id:
+        type: integer
+      persianTitle:
+        type: string
+      startAt:
+        type: string
+      year:
+        type: integer
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PersianYearWithoutDateResponse:
+    properties:
+      id:
+        type: integer
+      persianTitle:
+        type: string
+      year:
+        type: integer
     type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PropertyCategoryResponse:
     properties:
@@ -553,6 +695,13 @@ definitions:
       colorId:
         type: integer
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelPriceHistoryRequest:
+    properties:
+      price:
+        type: number
+      priceAt:
+        type: string
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelRequest:
     properties:
       carTypeId:
@@ -563,6 +712,13 @@ definitions:
         type: integer
       name:
         type: string
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelYearRequest:
+    properties:
+      carModelId:
+        type: integer
+      persianYearId:
+        type: integer
     type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarTypeRequest:
     properties:
@@ -606,6 +762,19 @@ definitions:
         type: string
     required:
     - name
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdatePersianYearRequest:
+    properties:
+      endAt:
+        type: string
+      persianTitle:
+        maxLength: 4
+        minLength: 4
+        type: string
+      startAt:
+        type: string
+      year:
+        type: integer
     type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdatePropertyCategoryRequest:
     properties:
@@ -844,6 +1013,308 @@ paths:
       summary: Get car-model-colors
       tags:
       - CarModelColors
+  /v1/car-model-price-histories/:
+    post:
+      consumes:
+      - application/json
+      description: create a CarModelPriceHistory
+      parameters:
+      - description: create a CarModelPriceHistory
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelPriceHistoryRequest'
+      responses:
+        "201":
+          description: CarModelPriceHistory Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPriceHistoryResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: create a CarModelPriceHistory
+      tags:
+      - CarModelPriceHistories
+  /v1/car-model-price-histories/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a CarModelPriceHistory
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Response
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a CarModelPriceHistory
+      tags:
+      - CarModelPriceHistories
+    get:
+      consumes:
+      - application/json
+      description: get a CarModelPriceHistory
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: CarModelPriceHistory Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPriceHistoryResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: GET a CarModelPriceHistory
+      tags:
+      - CarModelPriceHistories
+    put:
+      consumes:
+      - application/json
+      description: Update a CarModelPriceHistory
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a CarModelPriceHistory
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelPriceHistoryRequest'
+      responses:
+        "200":
+          description: CarModelPriceHistory Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPriceHistoryResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a CarModelPriceHistory
+      tags:
+      - CarModelPriceHistories
+  /v1/car-model-price-histories/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get car-model-price-histories
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: CarModelPriceHistory Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelPriceHistoryResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Get car-model-price-histories
+      tags:
+      - CarModelPriceHistories
+  /v1/car-model-years/:
+    post:
+      consumes:
+      - application/json
+      description: create a CarModelYear
+      parameters:
+      - description: create a CarModelYear
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelYearRequest'
+      responses:
+        "201":
+          description: CarModelYear Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelYearResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: create a CarModelYear
+      tags:
+      - CarModelYears
+  /v1/car-model-years/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a CarModelYear
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Response
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a CarModelYear
+      tags:
+      - CarModelYears
+    get:
+      consumes:
+      - application/json
+      description: get a CarModelYear
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: CarModelYear Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelYearResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: GET a CarModelYear
+      tags:
+      - CarModelYears
+    put:
+      consumes:
+      - application/json
+      description: Update a CarModelYear
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a CarModelYear
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelYearRequest'
+      responses:
+        "200":
+          description: CarModelYear Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelYearResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a CarModelYear
+      tags:
+      - CarModelYears
+  /v1/car-model-years/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get CarModelYear
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: CarModelYear Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelYearResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Get CarModelYear
+      tags:
+      - CarModelYears
   /v1/car-models/:
     post:
       consumes:
@@ -2539,6 +3010,157 @@ paths:
       summary: Send Otp To User
       tags:
       - Users
+  /v1/years/:
+    post:
+      consumes:
+      - application/json
+      description: create a PersianYear
+      parameters:
+      - description: create a PersianYear
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreatePersianYearRequest'
+      responses:
+        "201":
+          description: PersianYear Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PersianYearResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: create a PersianYear
+      tags:
+      - PersianYears
+  /v1/years/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a PersianYear
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Response
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a PersianYear
+      tags:
+      - PersianYears
+    get:
+      consumes:
+      - application/json
+      description: get a PersianYear
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: PersianYear Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PersianYearResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: GET a PersianYear
+      tags:
+      - PersianYears
+    put:
+      consumes:
+      - application/json
+      description: Update a PersianYear
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a PersianYear
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdatePersianYearRequest'
+      responses:
+        "200":
+          description: PersianYear Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PersianYearResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a PersianYear
+      tags:
+      - PersianYears
+  /v1/years/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get PersianYear
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: PersianYear Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_PersianYearResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Get PersianYear
+      tags:
+      - PersianYears
 securityDefinitions:
   BearerAuth:
     description: Type "Bearer" followed by a space and JWT token.

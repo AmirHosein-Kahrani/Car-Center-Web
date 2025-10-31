@@ -47,10 +47,10 @@ type CarModelColor struct {
 
 type CarModelYear struct {
 	BaseModel
-	CarModel               CarModel `gorm:"foreignKey:CarModelId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
-	CarModelId             int
+	CarModel               CarModel    `gorm:"foreignKey:CarModelId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
+	CarModelId             int         `gorm:"uniqueindex:idx CarModelId PersianYearId"`
 	PersianYear            PersianYear `gorm:"foreignKey:PersianYearId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
-	PersianYearId          int
+	PersianYearId          int         `gorm:"uniqueindex:idx CarModelId PersianYearId"` 
 	CarModelPriceHistories []CarModelPriceHistory
 }
 
