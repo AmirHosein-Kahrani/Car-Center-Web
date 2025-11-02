@@ -55,6 +55,7 @@ type CarModelResponse struct {
 	CarModelYears      []CarModelYearResponse     `json:"carModelyears,omitempty"`
 	CarModelImages     []CarModelImageResponse    `json:"carModelImages,omitempty"`
 	CarModelProperties []CarModelPropertyResponse `json:"carModelProperties,omitempty"`
+	CarModelComments   []CarModelCommentResponse  `json:"carModelComments,omitempty"`
 }
 
 // Car Model Color
@@ -142,4 +143,30 @@ type CarModelPropertyResponse struct {
 	CarModelId int              `json:"carModelId,omitempty"`
 	Property   PropertyResponse `json:"property,omitempty"`
 	Value      string           `json:"value"`
+}
+
+type CreateCarModelCommentRequest struct {
+	CarModelId int    `json:"carModelId" binding:"required"`
+	UserId     int    `json:"userId" binding:"required"`
+	Message    string `json:"Message" binding:"required,max=500"`
+}
+
+type UpdateCarModelCommentRequest struct {
+	Message string `json:"Message" binding:"required,max=500"`
+}
+
+type CarModelCommentResponse struct {
+	Id         int          `json:"id"`
+	CarModelId int          `json:"carModelId"`
+	User       UserResponse `json:"user"`
+	Message    string       `json:"Message" binding:"required,max=500"`
+}
+
+type UserResponse struct {
+	Id        int    `json:"id"`
+	UserName  string `json:"userName"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+	Email     string `json:"email"`
+	Message   string `json:"Message"`
 }

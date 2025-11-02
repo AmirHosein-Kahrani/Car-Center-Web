@@ -24,6 +24,20 @@ definitions:
       id:
         type: integer
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelCommentResponse:
+    properties:
+      Message:
+        maxLength: 500
+        type: string
+      carModelId:
+        type: integer
+      id:
+        type: integer
+      user:
+        $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UserResponse'
+    required:
+    - Message
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelImageResponse:
     properties:
       carModelId:
@@ -62,6 +76,10 @@ definitions:
       carModelColors:
         items:
           $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelColorResponse'
+        type: array
+      carModelComments:
+        items:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelCommentResponse'
         type: array
       carModelImages:
         items:
@@ -157,6 +175,20 @@ definitions:
     required:
     - carModelId
     - colorId
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelCommentRequest:
+    properties:
+      Message:
+        maxLength: 500
+        type: string
+      carModelId:
+        type: integer
+      userId:
+        type: integer
+    required:
+    - Message
+    - carModelId
+    - userId
     type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelImageRequest:
     properties:
@@ -404,6 +436,23 @@ definitions:
       items:
         items:
           $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelColorResponse'
+        type: array
+      pageNumber:
+        type: integer
+      totalPages:
+        type: integer
+      totalRows:
+        type: integer
+    type: object
+  ? github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelCommentResponse
+  : properties:
+      hasNextPage:
+        type: boolean
+      hasPreviousPage:
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelCommentResponse'
         type: array
       pageNumber:
         type: integer
@@ -785,6 +834,14 @@ definitions:
       colorId:
         type: integer
     type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelCommentRequest:
+    properties:
+      Message:
+        maxLength: 500
+        type: string
+    required:
+    - Message
+    type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelImageRequest:
     properties:
       isMainImage:
@@ -904,6 +961,21 @@ definitions:
         type: string
       unit:
         maxLength: 15
+        type: string
+    type: object
+  github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UserResponse:
+    properties:
+      Message:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: integer
+      lastName:
+        type: string
+      userName:
         type: string
     type: object
   github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse:
@@ -1116,6 +1188,157 @@ paths:
       summary: Get car-model-colors
       tags:
       - CarModelColors
+  /v1/car-model-comments/:
+    post:
+      consumes:
+      - application/json
+      description: create a CarModelComment
+      parameters:
+      - description: create a CarModelComment
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelCommentRequest'
+      responses:
+        "201":
+          description: CarModelComment Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelCommentResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: create a CarModelComment
+      tags:
+      - CarModelComments
+  /v1/car-model-comments/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a CarModelComment
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Response
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete a CarModelComment
+      tags:
+      - CarModelComments
+    get:
+      consumes:
+      - application/json
+      description: get a CarModelComment
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: CarModelComment Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelCommentResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: GET a CarModelComment
+      tags:
+      - CarModelComments
+    put:
+      consumes:
+      - application/json
+      description: Update a CarModelComment
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a CarModelComment
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelCommentRequest'
+      responses:
+        "200":
+          description: CarModelComment Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                Result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelCommentResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a CarModelComment
+      tags:
+      - CarModelComments
+  /v1/car-model-comments/get-by-filter:
+    post:
+      consumes:
+      - application/json
+      description: Get CarModelComment
+      parameters:
+      - description: Request
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter'
+      responses:
+        "200":
+          description: CarModelComment Response
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+            - properties:
+                result:
+                  $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelCommentResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse'
+      security:
+      - BearerAuth: []
+      summary: Get CarModelComment
+      tags:
+      - CarModelComments
   /v1/car-model-images/:
     post:
       consumes:

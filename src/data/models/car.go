@@ -77,7 +77,7 @@ type CarModelProperty struct {
 	CarModelId int
 	Properties Property `gorm:"foreignKey:PropertyId;constraint:OnUpdate:NO ACTION,OnDelete:NO ACTION"`
 	PropertyId int
-	Value      string `gorm:"size:100;type:string;not null"`
+	Value      string `gorm:"size:1000;type:string;not null"`
 }
 
 type CarModelComment struct {
