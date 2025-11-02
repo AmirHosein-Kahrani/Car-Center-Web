@@ -281,6 +281,263 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/car-model-images/": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "create a CarModelImage",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelImages"
+                ],
+                "summary": "create a CarModelImage",
+                "parameters": [
+                    {
+                        "description": "create a CarModelImage",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelImageRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "CarModelImage Response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Result": {
+                                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelImageResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-images/get-by-filter": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get car-model-images",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelImages"
+                ],
+                "summary": "Get car-model-images",
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelImage Response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelImageResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-images/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "get a CarModelImage",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelImages"
+                ],
+                "summary": "GET a CarModelImage",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelImage Response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Result": {
+                                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelImageResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update a CarModelImage",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelImages"
+                ],
+                "summary": "Update a CarModelImage",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update a CarModelImage",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelImageRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelImage Response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Result": {
+                                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelImageResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete a CarModelImage",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelImages"
+                ],
+                "summary": "Delete a CarModelImage",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/car-model-price-histories/": {
             "post": {
                 "security": [
@@ -513,6 +770,263 @@ const docTemplate = `{
                     "CarModelPriceHistories"
                 ],
                 "summary": "Delete a CarModelPriceHistory",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-properties/": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "create a CarModelProperty",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelProperties"
+                ],
+                "summary": "create a CarModelProperty",
+                "parameters": [
+                    {
+                        "description": "create a CarModelProperty",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelPropertyRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "CarModelProperty Response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Result": {
+                                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPropertyResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-properties/get-by-filter": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get CarModelProperty",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelProperties"
+                ],
+                "summary": "Get CarModelProperty",
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PaginationInputWithFilter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelProperty Response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelPropertyResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-properties/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "get a CarModelProperty",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelProperties"
+                ],
+                "summary": "GET a CarModelProperty",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelProperty Response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Result": {
+                                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPropertyResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Update a CarModelProperty",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelProperties"
+                ],
+                "summary": "Update a CarModelProperty",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update a CarModelProperty",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelPropertyRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelProperty Response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "Result": {
+                                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPropertyResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Delete a CarModelProperty",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelProperties"
+                ],
+                "summary": "Delete a CarModelProperty",
                 "parameters": [
                     {
                         "type": "integer",
@@ -3944,6 +4458,23 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelImageResponse": {
+            "type": "object",
+            "properties": {
+                "carModelId": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.FileResponse"
+                },
+                "isMainImage": {
+                    "type": "boolean"
+                }
+            }
+        },
         "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPriceHistoryResponse": {
             "type": "object",
             "properties": {
@@ -3961,6 +4492,23 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPropertyResponse": {
+            "type": "object",
+            "properties": {
+                "carModelId": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "property": {
+                    "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PropertyResponse"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
         "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelResponse": {
             "type": "object",
             "properties": {
@@ -3968,6 +4516,18 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelColorResponse"
+                    }
+                },
+                "carModelImages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelImageResponse"
+                    }
+                },
+                "carModelProperties": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPropertyResponse"
                     }
                 },
                 "carModelyears": {
@@ -4104,6 +4664,24 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelImageRequest": {
+            "type": "object",
+            "required": [
+                "carModelId",
+                "imageId"
+            ],
+            "properties": {
+                "carModelId": {
+                    "type": "integer"
+                },
+                "imageId": {
+                    "type": "integer"
+                },
+                "isMainImage": {
+                    "type": "boolean"
+                }
+            }
+        },
         "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelPriceHistoryRequest": {
             "type": "object",
             "required": [
@@ -4120,6 +4698,26 @@ const docTemplate = `{
                 },
                 "priceAt": {
                     "type": "string"
+                }
+            }
+        },
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CreateCarModelPropertyRequest": {
+            "type": "object",
+            "required": [
+                "carModelId",
+                "propertyId",
+                "value"
+            ],
+            "properties": {
+                "carModelId": {
+                    "type": "integer"
+                },
+                "propertyId": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "string",
+                    "maxLength": 100
                 }
             }
         },
@@ -4432,6 +5030,32 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelImageResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelImageResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelPriceHistoryResponse": {
             "type": "object",
             "properties": {
@@ -4445,6 +5069,32 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPriceHistoryResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.PagedList-github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto_CarModelPropertyResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.CarModelPropertyResponse"
                     }
                 },
                 "pageNumber": {
@@ -4945,6 +5595,14 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelImageRequest": {
+            "type": "object",
+            "properties": {
+                "isMainImage": {
+                    "type": "boolean"
+                }
+            }
+        },
         "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelPriceHistoryRequest": {
             "type": "object",
             "properties": {
@@ -4953,6 +5611,18 @@ const docTemplate = `{
                 },
                 "priceAt": {
                     "type": "string"
+                }
+            }
+        },
+        "github_com_AmirHosein-Kahrani_Car-Center-Web_api_dto.UpdateCarModelPropertyRequest": {
+            "type": "object",
+            "required": [
+                "value"
+            ],
+            "properties": {
+                "value": {
+                    "type": "string",
+                    "maxLength": 100
                 }
             }
         },
