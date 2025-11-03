@@ -9,9 +9,12 @@ import (
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/config"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/docs"
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/pkg/logging"
+	"github.com/AmirHosein-Kahrani/Car-Center-Web/pkg/metrics"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	cors "github.com/rs/cors/wrapper/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -25,15 +28,16 @@ func InitServer(cfg *config.Config) {
 	// r1 := gin.Default()
 
 	RegisterSwagger(r, cfg)
-
 	RegisterValidator()
-
+	RegisterPrometheus()
 	// r.Use(gin.Logger(), gin.Recovery(), middlewares.TestMiddleware())
 	// r.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequest())
 	r.Use(gin.Logger(), gin.CustomRecovery(middlewares.CustomRecoveryHandler), middlewares.LimitByRequest())
 
 	r.Use(middlewares.DefaultStructuredLogger(cfg))
 	r.Use(cors.Default())
+
+	r.Use(middlewares.Prometheus())
 
 	RegisterRoutes(r, cfg)
 
@@ -104,8 +108,14 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		routers.CarModelImage(carModelImages, cfg)
 		routers.CarModelProperty(carModelProperties, cfg)
 		routers.CarModelComment(carModelComments, cfg)
-		r.Static("/static", "./uploads")
 		//-----------------------------------
+
+		// Static
+		r.Static("/static", "./uploads")
+		// Prometheus
+
+		r.GET("/metrics", gin.WrapH(promhttp.Handler()))
+
 	}
 }
 
@@ -133,4 +143,17 @@ func RegisterSwagger(r *gin.Engine, cfg *config.Config) {
 	docs.SwaggerInfo.Schemes = []string{"http"}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+}
+
+func RegisterPrometheus() {
+	err := prometheus.Register(metrics.DbCall)
+	if err != nil {
+		Logger.Error(logging.Prometheus, logging.StartUp, err.Error(), nil)
+	}
+
+	err = prometheus.Register(metrics.HttpDuration)
+	if err != nil {
+		Logger.Error(logging.Prometheus, logging.StartUp, err.Error(), nil)
+	}
+
 }
