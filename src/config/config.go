@@ -20,8 +20,9 @@ type Config struct {
 }
 
 type ServerConfig struct {
-	Port    string
-	RunMode string
+	InternalPort string
+	ExternalPort string
+	RunMode      string
 }
 
 type LoggerConfig struct {
@@ -85,6 +86,11 @@ func GetConfig() *Config {
 		log.Fatalf("Error In Load Config %v", err)
 	}
 	cfg, err := ParseConfig(v)
+	envPort := os.Getenv("PORT")
+	if envPort != "" {
+		cfg.Server.ExternalPort = envPort
+		log.Printf("Set external port from enviroment -> %s", envPort)
+	}
 	if err != nil {
 		log.Fatalf("Error In Parse Config %v", err)
 	}
@@ -124,9 +130,9 @@ func getConfigPath(env string) string {
 
 	switch env {
 	case "docker":
-		return "config/config-docker"
+		return "/app/config/config-docker"
 	case "production":
-		return "config/config-production"
+		return "/config/config-production"
 	default:
 		return "../config/config-development"
 	}

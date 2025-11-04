@@ -1,10 +1,13 @@
 package logging
 
 import (
+	"fmt"
 	"os"
 	"sync"
+	"time"
 
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/config"
+	"github.com/google/uuid"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/pkgerrors"
 )
@@ -46,8 +49,9 @@ func (l *zeroLogger) Init() {
 	once.Do(func() {
 
 		zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
+		fileName := fmt.Sprintf("%s%s-%s.%s", l.cfg.Logger.Filepath, time.Now().Format("2006-01-02"), uuid.New(), "log")
 
-		file, err := os.OpenFile(l.cfg.Logger.Filepath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
+		file, err := os.OpenFile(fileName, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
 
 		if err != nil {
 			panic("zero Log Error: could not open file")

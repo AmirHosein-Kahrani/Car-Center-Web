@@ -12,6 +12,9 @@ func Prometheus() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		start := time.Now()
 		path := c.FullPath()
+		if path == "" {
+			path = "/undifined"
+		}
 		method := c.Request.Method
 		c.Next()
 		status := c.Writer.Status()
@@ -19,7 +22,7 @@ func Prometheus() gin.HandlerFunc {
 		// timer := prometheus.NewTimer(metrics.HttpDuration.WithLabelValues(path, method, strconv.Itoa(status)))
 		// timer.ObserveDuration()
 		metrics.HttpDuration.WithLabelValues(path, method, strconv.Itoa(status)).
-			Observe(float64(time.Since(start) / time.Second))
+			Observe(float64(time.Since(start) / time.Millisecond))
 
 	}
 }

@@ -1,7 +1,11 @@
 package logging
 
 import (
+	"fmt"
+	"time"
+
 	"github.com/AmirHosein-Kahrani/Car-Center-Web/config"
+	"github.com/google/uuid"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -41,8 +45,9 @@ func newZapLogger(cfg *config.Config) *zapLogger {
 func (l *zapLogger) Init() {
 
 	once.Do(func() {
+		fileName := fmt.Sprintf("%s%s-%s.%s", l.cfg.Logger.Filepath, time.Now().Format("2006-01-02"), uuid.New(), "log")
 		w := zapcore.AddSync(&lumberjack.Logger{
-			Filename:   l.cfg.Logger.Filepath,
+			Filename:   fileName ,
 			MaxSize:    1,
 			MaxAge:     5,
 			MaxBackups: 10,

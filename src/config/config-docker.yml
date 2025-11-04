@@ -1,8 +1,9 @@
 Server:
-  Port: 5005
+  InternalPort: 5000
+  ExternalPort: 9001
   RunMode: debug
 Logger: 
-  Filepath: ../logs/logs.log
+  Filepath: app/logs/
   Encoding: json
   Level: debug
   Logger: zerolog

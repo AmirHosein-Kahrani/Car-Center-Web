@@ -6,7 +6,7 @@ import (
 
 var DbCall = prometheus.NewCounterVec(
 	prometheus.CounterOpts{
-		Name: "db calls total",
+		Name: "db_calls_total",
 		Help: "Number of database calls",
 	},
 	[]string{"type_name", "operation_name", "status"},

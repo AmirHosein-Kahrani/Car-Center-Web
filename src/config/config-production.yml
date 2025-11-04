@@ -3,7 +3,7 @@ Server:
   ExternalPort: 5005
   RunMode: debug
 Logger: 
-  Filepath: ../logs/
+  Filepath: /logs/
   Encoding: json
   Level: debug
   Logger: zerolog
