@@ -3,7 +3,7 @@ Server:
   ExternalPort: 9001
   RunMode: debug
 Logger: 
-  Filepath: app/logs/
+  Filepath: /logs/
   Encoding: json
   Level: debug
   Logger: zerolog

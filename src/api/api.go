@@ -23,7 +23,7 @@ import (
 var Logger = logging.NewLogger(config.GetConfig())
 
 func InitServer(cfg *config.Config) {
-
+	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
 	// r1 := gin.Default()
 
