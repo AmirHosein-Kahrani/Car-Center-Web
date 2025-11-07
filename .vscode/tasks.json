@@ -3,14 +3,8 @@
   "tasks": [
     {
       "label": "swag",
-      "type": "shell",
       "command": "cd src && swag init -g cmd/main.go --parseDependency --parseInternal",
-
-      "problemMatcher": [],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
+      "type": "shell"
     }
   ]
 }
