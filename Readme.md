@@ -1,4 +1,4 @@
-# Golang Clean Web API (Dockerize) with a full sample project (Car Sale project)
+# Golang Clean Web API (Dockerize) with a full sample project (Car Center project)
 
 ## System Design Diagram
 
@@ -151,7 +151,7 @@ Password: foobar
 #### PgAdmin  [http://localhost:8090](http://localhost:8090)
 
 ```
-Username: h.naimaei@gmail.com
+Username: amir.kahrani7@gmail.com
 Password: 123456
 ```
 
@@ -195,9 +195,9 @@ Description=go-api
 Type=simple
 Restart=always
 RestartSec=20s
-ExecStart=/home/hamed/github/golang-clean-web-api/prod/server
+ExecStart=/home/amir/github/golang-clean-web-api/prod/server
 Environment="APP_ENV=production"
-WorkingDirectory=/home/hamed/github/golang-clean-web-api/prod
+WorkingDirectory=/home/amir/github/golang-clean-web-api/prod
 [Install]
 WantedBy=multi-user.target
 ```
